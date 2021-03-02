@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -40,7 +41,6 @@ public final class VerifyConnection implements Runnable {
 	 * @Fields userSocket : 用户Socket对象
 	 */
 	private Socket userSocket;
-	static private int idx=10019;
 	/**
 	 * @Title: VerifyConnection
 	 * @Description: 初始化套接字对象
@@ -53,8 +53,7 @@ public final class VerifyConnection implements Runnable {
 	/**
 	 * @Title: switchCon
 	 * @Description: 选择当前处理的事件类型并执行不同操作
-	 * @param obj
-	 *            从客户端发送来的验证请求
+	 * @param obj 从客户端发送来的验证请求
 	 * @return: Object 返回处理结果
 	 */
 	public Object switchCon(Object obj) {
@@ -100,8 +99,7 @@ public final class VerifyConnection implements Runnable {
 				String res[] = field.split("```", 4);
 				if (res.length == 4) {
 					/*
-					 * res[0]：getChatRecord、res[1]：fromId、res[2]：toId、
-					 * res[3]：isGroup
+					 * res[0]：getChatRecord、res[1]：fromId、res[2]：toId、 res[3]：isGroup
 					 */
 					result = check.getChatRecord(res[1], res[2], res[3]);
 				}
@@ -122,16 +120,16 @@ public final class VerifyConnection implements Runnable {
 					con.close();
 				}
 			} else if (field.startsWith("registerID")) {
-				String res[] = field.split("```", 3);
-				if (res.length == 3) {
+				String res[] = field.split("```", 4);
+				if (res.length == 4) {
 					/*
-					 * res[0]：registerID、res[1]：nickname、res[2]：pwd
+					 * res[0]：registerID、res[1]：nickname、res[2]：pwd res[3]: email
 					 */
 					DataBaseConnection con = new DataBaseConnection();
 					String userID = check.getNewUserID();
-					String[] defaultInfo = {userID, res[1],  res[2], "-", "M", "2021-01-01",
-							"http://static.dreamwings.cn/wp-content/uploads/2016/05/236657.jpg", "", 
-							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())};
+					String[] defaultInfo = { userID, res[1], res[2], res[3], "M", "2021-01-01",
+							"http://static.dreamwings.cn/wp-content/uploads/2016/05/236657.jpg", "",
+							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) };
 					String sql = "insert into dw_user values(\"" + userID + "\"";
 					for (int i = 1; i < defaultInfo.length; ++i)
 						sql += ", \"" + defaultInfo[i] + "\"";
@@ -141,21 +139,45 @@ public final class VerifyConnection implements Runnable {
 					result = userID;
 					con.close();
 				}
-			} else if(field.startsWith("friendRequest")) {
+			} else if (field.startsWith("ForgetPwd")) {
+				String res[] = field.split("```", 4);
+				if (res.length == 4) {
+					/*
+					 * res[0]：ForgetPwd、res[1]：userID、res[2]：pwd res[3]: email
+					 */
+					DataBaseConnection con = new DataBaseConnection();
+					String sql = "select * from dw_user where user_id = " + res[1] + " and user_email = \"" + res[3] + "\"";
+					System.out.println("forget sql: " + sql);
+					try {
+						result = con.getFromDatabase(sql).next();
+						System.out.println("result is " + result.toString());
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if ((boolean)result == true) {
+						sql = "update dw_user set user_password = \"" + res[2] + "\" where user_id = " + res[1];
+						System.out.println("the updated sql is " + sql);
+						con.putToDatabase(sql);
+					}
+					
+					con.close();
+				}
+			} else if (field.startsWith("friendRequest")) {
 				String res[] = field.split("```", 3);
-				if(res.length==3) {
+				if (res.length == 3) {
 					/*
 					 * res[0]：friendRequest、res[1]：fromID、res[2]：toID
 					 */
-					result = check.friendRequest(res[1],res[2]);
+					result = check.friendRequest(res[1], res[2]);
 				}
-			} else if(field.startsWith("groupRequest")) {
+			} else if (field.startsWith("groupRequest")) {
 				String res[] = field.split("```", 3);
-				if(res.length==3) {
+				if (res.length == 3) {
 					/*
 					 * res[0]：groupRequest、res[1]：fromID、res[2]：toID
 					 */
-					result = check.groupRequest(res[1],res[2]);
+					result = check.groupRequest(res[1], res[2]);
 				}
 			}
 			break;

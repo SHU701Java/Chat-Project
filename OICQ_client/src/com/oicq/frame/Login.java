@@ -230,14 +230,7 @@ public final class Login extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
-				try {
-					URI uri = new URI("http://www.dreamwings.cn");
-					Desktop.getDesktop().browse(uri);
-				} catch (URISyntaxException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				new ForgetPwdUI();
 			}
 
 		});

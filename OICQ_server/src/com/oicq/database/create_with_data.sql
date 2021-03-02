@@ -6,6 +6,7 @@
 -- Generation Time: 2019-07-08 17:24:08
 -- 服务器版本： 10.1.30-MariaDB
 -- PHP Version: 7.2.2
+
 create database oicq2;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -20,7 +21,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `oicq`
+-- Database: `oicq2`
 --
 
 -- --------------------------------------------------------
