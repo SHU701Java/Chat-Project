@@ -152,10 +152,27 @@ public final class InteractWithServer {
 	 *             用户名
 	 * @param: password
 	 *             用户密码未加密
+	 * @param: email
+	 *             用户邮箱
 	 * @return: String  新用户ID
 	 */
-	public static String registerID(String user_name, String password) {
-		return (String)postToServer("registerID```" + user_name + "```" + password);
+	public static String registerID(String user_name, String password, String email) {
+		return (String)postToServer("registerID```" + user_name + "```" + password + "```" + email);
+	}
+
+	/**
+	 * @Title: ForgetPwdUI
+	 * @Description:向服务器发送请求修改密码
+	 * @param: user_name
+	 *             用户名
+	 * @param: password
+	 *             用户密码未加密
+	 * @param: email
+	 *             用户邮箱
+	 * @return: String  新用户ID
+	 */
+	public static boolean ForgetPwd(String user_name, String password, String email) {
+		return (boolean)postToServer("ForgetPwd```" + user_name + "```" + password + "```" + email);
 	}
 	
 	/**

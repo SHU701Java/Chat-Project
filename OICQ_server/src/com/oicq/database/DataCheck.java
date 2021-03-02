@@ -34,16 +34,13 @@ public final class DataCheck {
 	/**
 	 * @Title: isLoginSuccess
 	 * @Description: 利用客户端发送来的用户名与MD5加密后的密码查询该用户是否存在于数据库
-	 * @param: userId
-	 *             用户名
-	 * @param: userPassword
-	 *             加密后的密码
+	 * @param: userId       用户名
+	 * @param: userPassword 加密后的密码
 	 * @return: Boolean 是否存在该用户
-	 * @throws: SQLException
-	 *              获取结果集失败抛出该异常
+	 * @throws: SQLException 获取结果集失败抛出该异常
 	 */
 	public Boolean isLoginSuccess(String userId, String userPassword) {
-		Boolean isSuccess = new Boolean(false);
+		Boolean isSuccess = false;
 		try {
 			// 查询该用户是否存在
 			DataBaseConnection dataCon = new DataBaseConnection();
@@ -64,13 +61,10 @@ public final class DataCheck {
 	/**
 	 * @Title: getMemberFromId
 	 * @Description: 通过ID与SQL获取最终结果集
-	 * @param: sql
-	 *             SQL语句
-	 * @param: row
-	 *             选择哪一个属性
+	 * @param: sql SQL语句
+	 * @param: row 选择哪一个属性
 	 * @return: Vector<String> 最终查询到的结果
-	 * @throws: SQLException
-	 *              获取结果失败抛出该异常
+	 * @throws: SQLException 获取结果失败抛出该异常
 	 */
 	private static Vector<String> getMemberFromId(String sql, String row) {
 		// 与数据库创建连接
@@ -96,8 +90,7 @@ public final class DataCheck {
 	/**
 	 * @Title: getFriendMember
 	 * @Description: 查询用户的所有好友ID
-	 * @param myselfId
-	 *            用户ID
+	 * @param myselfId 用户ID
 	 * @return Vector<String> 好友列表Vector数组
 	 */
 	public static Vector<String> getFriendMember(String myselfId) {
@@ -108,8 +101,7 @@ public final class DataCheck {
 	/**
 	 * @Title: getGroupMember
 	 * @Description: 查询群中所有成员的ID
-	 * @param groupId
-	 *            群ID
+	 * @param groupId 群ID
 	 * @return Vector<String> 返回群成员列表Vector数组
 	 */
 	public static Vector<String> getGroupMember(String groupId) {
@@ -120,13 +112,10 @@ public final class DataCheck {
 	/**
 	 * @Title: getUserFriends
 	 * @Description: 获取用户好友信息
-	 * @param userId
-	 *            用户ID
-	 * @param dataCon
-	 *            与数据库连接对象
+	 * @param userId  用户ID
+	 * @param dataCon 与数据库连接对象
 	 * @return Vector<FriendsOrGroups> 返回最终获取的好友信息列表Vector数组
-	 * @throws: SQLException
-	 *              查询结果集失败抛出该异常
+	 * @throws: SQLException 查询结果集失败抛出该异常
 	 */
 	public Vector<FriendsOrGroups> getUserFriends(String userId, DataBaseConnection dataCon) {
 		Vector<FriendsOrGroups> friends = new Vector<FriendsOrGroups>();
@@ -153,13 +142,10 @@ public final class DataCheck {
 	/**
 	 * @Title: getUserGroups
 	 * @Description: 获取用户群信息
-	 * @param userId
-	 *            用户ID
-	 * @param dataCon
-	 *            与数据库连接对象
+	 * @param userId  用户ID
+	 * @param dataCon 与数据库连接对象
 	 * @return Vector<FriendsOrGroups> 返回最终获取的群信息列表Vector数组
-	 * @throws: SQLException
-	 *              查询结果集失败抛出该异常
+	 * @throws: SQLException 查询结果集失败抛出该异常
 	 */
 	public Vector<FriendsOrGroups> getUserGroups(String userId, DataBaseConnection dataCon) {
 		Vector<FriendsOrGroups> groups = new Vector<FriendsOrGroups>();
@@ -186,8 +172,7 @@ public final class DataCheck {
 	/**
 	 * @Title: getUserInfo
 	 * @Description: 获取用户信息(包括个人资料，群列表及资料，好友列表及资料)
-	 * @param userId
-	 *            需要获取的用户ID
+	 * @param userId 需要获取的用户ID
 	 * @return UserInfo 返回UserInfo用户信息对象
 	 * @throws:SQLException 查询结果集失败抛出该异常
 	 */
@@ -240,12 +225,9 @@ public final class DataCheck {
 	/**
 	 * @Title: getChatRecord
 	 * @Description: 获取聊天记录
-	 * @param fromId
-	 *            交互方1
-	 * @param toId
-	 *            交互方2
-	 * @param isGroup
-	 *            是否获取群聊天记录
+	 * @param fromId  交互方1
+	 * @param toId    交互方2
+	 * @param isGroup 是否获取群聊天记录
 	 * @return Vector<String> 返回聊天记录结果Vector数组
 	 * @throws:SQLException 查询结果集失败抛出该异常
 	 */
@@ -280,10 +262,10 @@ public final class DataCheck {
 		}
 		return all;
 	}
-	
+
 	public String getNewUserID() {
 		DataBaseConnection con = new DataBaseConnection();
-		ResultSet resultSet =  con.getFromDatabase("select user_id from dw_user order by user_id DESC limit 1");
+		ResultSet resultSet = con.getFromDatabase("select user_id from dw_user order by user_id DESC limit 1");
 		String res = "";
 		try {
 			while (resultSet.next())
@@ -297,7 +279,7 @@ public final class DataCheck {
 		int nxt = Integer.parseInt(res);
 		return String.valueOf(nxt + 1);
 	}
-	
+
 	public void addFriend(String fromID, String toID, boolean twoWay) {
 		boolean has1 = false, has2 = false;
 		try {
@@ -306,73 +288,73 @@ public final class DataCheck {
 			String sql2 = "select * from dw_useruser where myfriend = " + toID + " and myself = " + fromID;
 			has1 = con.getFromDatabase(sql1).next();
 			has2 = con.getFromDatabase(sql2).next();
-			
+
 			if (!has1)
 				con.putToDatabase("insert into dw_useruser values(\"" + fromID + "\", \"" + toID + "\")");
 			if (twoWay && !has2)
-				con.putToDatabase("insert into dw_useruser values(\"" + toID + "\", \"" + fromID + "\")"); 
+				con.putToDatabase("insert into dw_useruser values(\"" + toID + "\", \"" + fromID + "\")");
 			con.close();
 		} catch (SQLException e) {
 			System.out.println("身份验证信息查询失败:" + e.getMessage());
 		}
 	}
-	
+
 	public void delFriend(String fromID, String toID, boolean twoWay) {
 		DataBaseConnection con = new DataBaseConnection();
 		con.putToDatabase("delete dw_useruser where myself = " + fromID + " and myfriend = " + toID);
 		if (twoWay)
-			con.putToDatabase("delete dw_useruser where myself = " + toID + " and myfriend = " + fromID); 
+			con.putToDatabase("delete dw_useruser where myself = " + toID + " and myfriend = " + fromID);
 		con.close();
 	}
-	
+
 	public int friendRequest(String fromID, String toID) {
-		int status=0;
+		int status = 0;
 		boolean isSuccess = false;
 		try {
 			DataBaseConnection con = new DataBaseConnection();
-			String sql="select * from dw_user where user_id = "+toID;
-			isSuccess=con.getFromDatabase(sql).next();
-			if(isSuccess){
-				sql="select * from dw_useruser where myself = "+fromID+" and myfriend ="+toID;
-				isSuccess=con.getFromDatabase(sql).next();
-				if(isSuccess) {//已经是好友
-					status=1;
-				}else {//成功添加
-					con.putToDatabase("insert into dw_useruser values(\""+fromID+"\", \""+toID+"\")");
-					status=2;
+			String sql = "select * from dw_user where user_id = " + toID;
+			isSuccess = con.getFromDatabase(sql).next();
+			if (isSuccess) {
+				sql = "select * from dw_useruser where myself = " + fromID + " and myfriend =" + toID;
+				isSuccess = con.getFromDatabase(sql).next();
+				if (isSuccess) {// 已经是好友
+					status = 1;
+				} else {// 成功添加
+					con.putToDatabase("insert into dw_useruser values(\"" + fromID + "\", \"" + toID + "\")");
+					status = 2;
 				}
-			}else {
-				//目标不存在
-				status=0;
+			} else {
+				// 目标不存在
+				status = 0;
 			}
-		}catch (SQLException e) {
-			System.out.println("身份验证信息查询失败: "+e.getMessage());
+		} catch (SQLException e) {
+			System.out.println("身份验证信息查询失败: " + e.getMessage());
 		}
 		return status;
 	}
-	
+
 	public int groupRequest(String fromID, String toID) {
-		int status=0;
+		int status = 0;
 		boolean isSuccess = false;
 		try {
 			DataBaseConnection con = new DataBaseConnection();
-			String sql="select * from dw_group where group_id = "+toID;
-			isSuccess=con.getFromDatabase(sql).next();
-			if(isSuccess){
-				sql="select * from dw_usergroup where user_id = "+fromID+" and group_id ="+toID;
-				isSuccess=con.getFromDatabase(sql).next();
-				if(isSuccess) {//已经是好友
-					status=1;
-				}else {//成功添加
-					con.putToDatabase("insert into dw_usergroup values(\""+fromID+"\", \""+toID+"\")");
-					status=2;
+			String sql = "select * from dw_group where group_id = " + toID;
+			isSuccess = con.getFromDatabase(sql).next();
+			if (isSuccess) {
+				sql = "select * from dw_usergroup where user_id = " + fromID + " and group_id =" + toID;
+				isSuccess = con.getFromDatabase(sql).next();
+				if (isSuccess) {// 已经是好友
+					status = 1;
+				} else {// 成功添加
+					con.putToDatabase("insert into dw_usergroup values(\"" + fromID + "\", \"" + toID + "\")");
+					status = 2;
 				}
-			}else {
-				//目标不存在
-				status=0;
+			} else {
+				// 目标不存在
+				status = 0;
 			}
-		}catch (SQLException e) {
-			System.out.println("身份验证信息查询失败: "+e.getMessage());
+		} catch (SQLException e) {
+			System.out.println("身份验证信息查询失败: " + e.getMessage());
 		}
 		return status;
 	}

@@ -12,7 +12,7 @@ import com.oicq.client.InteractWithServer;
 import com.oicq.config.ChatVerify;
 
 /**   
- * @ClassName:  RegisterUI  
+ * @ClassName:  SetPwdUI  
  * @Description: 注册界面   
  * @author: 邬广星
  * @date: 2021-02
@@ -21,7 +21,7 @@ import com.oicq.config.ChatVerify;
  * @Copyright: 2021 www.wgx666.monster Inc. All rights reserved.  
  */  
 
-public class RegisterUI extends JFrame {
+public class ForgetPwdUI extends JFrame {
 
 	/**
 	 * 
@@ -30,11 +30,13 @@ public class RegisterUI extends JFrame {
 	
 	JFrame thisFrame;
 	JPanel upPanel, all;
-	JTextField nickName, email;
+	JTextField userID, email;
 	JPasswordField pwd;
-	JButton Register, minimize, close;
+	JButton SetPwd, minimize, close;
 	
-	public RegisterUI() {
+	final String str1 = "账号", str2 = "注册时的邮箱", str3 = "新的密码";
+	
+	public ForgetPwdUI() {
 		// TODO 自动生成的构造函数存根
 		setLayout(null);
 		// 更改显示的小图标
@@ -85,29 +87,29 @@ public class RegisterUI extends JFrame {
 		all.setBounds(0, 51, 450, 400);
 		all.setLayout(null);
 		
-		nickName = new JTextField("昵称");
-		nickName.setBounds(80, 50, 300, 50);
-		nickName.setForeground(Color.GRAY);
-		nickName.addFocusListener(new FocusListener() {
+		userID = new JTextField(str1);
+		userID.setBounds(80, 50, 300, 50);
+		userID.setForeground(Color.GRAY);
+		userID.addFocusListener(new FocusListener() {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				if (nickName.getText().trim().equals("")) {
-					nickName.setForeground(Color.GRAY);
-					nickName.setText("昵称");
+				if (userID.getText().trim().equals("")) {
+					userID.setForeground(Color.GRAY);
+					userID.setText(str1);
 				}
 			}
 
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				if (nickName.getText().trim().equals("昵称")) {
-					nickName.setText("");
-					nickName.setForeground(Color.BLACK);
+				if (userID.getText().trim().equals(str1)) {
+					userID.setText("");
+					userID.setForeground(Color.BLACK);
 				}
 			}
 		});
 		
-		email = new JTextField("邮箱, 用来找回密码时的验证");
+		email = new JTextField(str2);
 		email.setBounds(80, 250, 300, 50);
 		email.setForeground(Color.GRAY);
 		email.addFocusListener(new FocusListener() {
@@ -116,20 +118,20 @@ public class RegisterUI extends JFrame {
 			public void focusLost(FocusEvent e) {
 				if (email.getText().trim().equals("")) {
 					email.setForeground(Color.GRAY);
-					email.setText("邮箱, 用来找回密码时的验证");
+					email.setText(str2);
 				}
 			}
 
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				if (email.getText().trim().equals("邮箱, 用来找回密码时的验证")) {
+				if (email.getText().trim().equals(str2)) {
 					email.setText("");
 					email.setForeground(Color.BLACK);
 				}
 			}
 		});
 		
-		pwd = new JPasswordField("密码");
+		pwd = new JPasswordField(str3);
 		pwd.setBounds(80, 150, 300, 50);
 		pwd.setEchoChar((char) 0);
 		pwd.setForeground(Color.GRAY);
@@ -140,13 +142,13 @@ public class RegisterUI extends JFrame {
 				if (String.valueOf(pwd.getPassword()).trim().equals("")) {
 					pwd.setEchoChar((char) 0);
 					pwd.setForeground(Color.GRAY);
-					pwd.setText("密码");
+					pwd.setText(str3);
 				}
 			}
 
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (String.valueOf(pwd.getPassword()).trim().equals("密码")) {
+				if (String.valueOf(pwd.getPassword()).trim().equals(str3)) {
 					pwd.setEchoChar('•');
 					pwd.setForeground(Color.BLACK);
 					pwd.setText("");
@@ -154,25 +156,28 @@ public class RegisterUI extends JFrame {
 			}
 		});
 		
-		Register = new JButton("注   册");
-		Register.setBounds(50, 350, 350, 50);
+		SetPwd = new JButton("设 置 密 码");
+		SetPwd.setBounds(50, 350, 350, 50);
 		thisFrame = this;
-		Register.addActionListener(new ActionListener() {
+		SetPwd.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
-				ChatVerify user = new ChatVerify(nickName.getText().trim(), String.valueOf(pwd.getPassword()).trim());
-				String userID = InteractWithServer.registerID(user.getUserId(), user.getUserPassword(), email.getText().trim());
-				JOptionPane.showMessageDialog(thisFrame, "注册成功!你的账号为" + userID);
+				ChatVerify user = new ChatVerify(userID.getText().trim(), String.valueOf(pwd.getPassword()).trim());
+				boolean isSuccess = InteractWithServer.ForgetPwd(user.getUserId(), user.getUserPassword(), email.getText().trim());
+				if (!isSuccess)
+					JOptionPane.showMessageDialog(thisFrame, "对不起, 你的邮箱错误!");
+				else 
+					JOptionPane.showMessageDialog(thisFrame, "你的密码已设置成功!");
 				thisFrame.dispose();
 			}
 		});
 		
-		all.add(nickName);
+		all.add(userID);
 		all.add(pwd);
 		all.add(email);
-		all.add(Register);
+		all.add(SetPwd);
 		
 		add(all);
 		
