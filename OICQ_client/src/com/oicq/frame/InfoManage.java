@@ -31,7 +31,7 @@ import com.oicq.user.User;
 import com.sun.org.apache.xml.internal.security.Init;
 
 /**   
- * @ClassName:  UserAdd  
+ * @ClassName:  infoManage  
  * @Description: 好友群聊简易添加界面  仿照主界面downPanel的左右设计
  * @author: Zztrans
  * @date: 2021-02
@@ -40,7 +40,7 @@ import com.sun.org.apache.xml.internal.security.Init;
  * @Copyright: Inc. All rights reserved.  
  */  
 
-public class UserAdd extends JFrame{
+public class InfoManage extends JFrame{
 	private LoginMousemove adapter;
 	JTextField useridText,groupidText;
 	String friendID,groupID;
@@ -77,7 +77,7 @@ public class UserAdd extends JFrame{
 		
 		peopleButton = new JRadioButton();
 		peopleButton.setBounds(24, 0, 96, 36);
-		peopleButton.setText("好友管理");
+		peopleButton.setText("信息查询");
 		peopleButton.setSelected(true);
 		peopleButton.addFocusListener(new FocusListener() {
 
@@ -108,7 +108,7 @@ public class UserAdd extends JFrame{
 		
 		groupButton = new JRadioButton();
 		groupButton.setBounds(168, 0, 96, 36);
-		groupButton.setText("群聊管理");
+		groupButton.setText("信息修改");
 		groupButton.addFocusListener(new FocusListener() {
 
 			@Override
@@ -133,7 +133,7 @@ public class UserAdd extends JFrame{
 		groupStatus=new JTextArea();
 		groupStatus.setEditable(false);
 		groupStatus.setBounds(30,10,228,36);
-		groupStatus.setText("输入您要添加的群号5位数字id");
+		groupStatus.setText("未完善 咕咕咕");
 		rightJPanel.add(groupStatus);
 		
 		groupLable=new JLabel();
@@ -181,20 +181,20 @@ public class UserAdd extends JFrame{
 		friendStatus=new JTextArea();
 		friendStatus.setEditable(false);
 		friendStatus.setBounds(30,10,228,36);
-		friendStatus.setText("输入您要添加的好友5位数字id");
+		friendStatus.setText("未完善 咕咕咕");
 		leftJPanel.add(friendStatus);
 		
 		friendLable=new JLabel();
-		friendLable.setBounds(0,100,50,36);
+		friendLable.setBounds(0,50,50,36);
 		friendLable.setText("输入id:");
 		
 		leftJPanel.add(friendLable);
 		useridText=new JTextField();
-		useridText.setBounds(50,100,188,36);
+		useridText.setBounds(50,50,188,36);
 		leftJPanel.add(useridText);
 		
 		friendAddButton=new JButton("添加");
-		friendAddButton.setBounds(100,200,88,48);
+		friendAddButton.setBounds(100,100,88,48);
 		leftJPanel.add(friendAddButton);
 		
 		friendAddButton.addActionListener(new ActionListener() {
@@ -219,7 +219,6 @@ public class UserAdd extends JFrame{
 				}else if (curstatus == 1){
 					friendStatus.setText("该用户已经是您的好友,请确认!");
 				}else {
-					userInfo=InteractWithServer.getUserInfo(userInfo.getUserId());
 					friendStatus.setText("添加成功,重启生效!单向好友则只能单向聊天哦");
 				}
 			}
@@ -233,7 +232,7 @@ public class UserAdd extends JFrame{
 
 	}
 	
-	public UserAdd(User info) {
+	public InfoManage(User info) {
 		this.userInfo=info;
 		// TODO 自动生成的构造函数存根
 		setIconImage(Toolkit.getDefaultToolkit().createImage("./res/mainpanel/qq_logo.png"));

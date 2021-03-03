@@ -193,12 +193,11 @@ public class ForgetPwdUI extends JFrame {
 		addMouseMotionListener(adapter);
 		addMouseListener(adapter);
 		setSize(450, 500);
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Already there
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Already there
 		// setExtendedState(JFrame.MAXIMIZED_BOTH); //set Jframe size？
 		setUndecorated(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
-	}
-	
+	}	
 }

@@ -25,7 +25,6 @@ import javax.swing.*;
 import com.oicq.client.InteractWithServer;
 import com.oicq.config.UserInfo.FriendsOrGroups;
 import com.oicq.user.User;
-import com.sun.org.apache.xpath.internal.operations.And;
 
 /**   
  * @ClassName:  MainInterface  
@@ -45,12 +44,12 @@ public final class MainInterface extends JFrame implements ActionListener {
 	private JPanel upPanel, downPanel, friendPane, groupPane;
 	private JButton minimize, close, tradesButton, peopelButtonExtend, groupButtonExtend;
 	private JLabel /* logo, */ /* headPortrait, */ nameLabel;
-	private JButton headPortrait,friendManage;
+	private JButton headPortrait,friendManage,infoManage,refreshManage;
 	private Box nameBox;
 	private JTextField tradesTextField;
 	private ButtonGroup peopelOrGroup;
 	private JRadioButton peopelButton, groupButton;
-	private User userInfo;
+	User userInfo;
 	private JScrollPane friendScrollPane;
 	private ButtonGroup friendButtonGroup, groupButtonGroup;
 
@@ -103,6 +102,8 @@ public final class MainInterface extends JFrame implements ActionListener {
 		upPanel.add(tradesButton);
 		upPanel.add(tradesTextField);
 		upPanel.add(friendManage);
+		upPanel.add(infoManage);
+		upPanel.add(refreshManage);
 		downPanel.add(peopelButtonExtend);
 		downPanel.add(peopelButton);
 		downPanel.add(groupButton);
@@ -123,6 +124,102 @@ public final class MainInterface extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
+	void updateFriendModel() {
+		int friendsNumber = userInfo.getFriends().size();
+		friendPane = new JPanel();
+		friendPane.setLayout(null);
+		friendPane.setBounds(0, 0, 288, friendsNumber * 51);
+		friendPane.setPreferredSize(new Dimension(270, friendsNumber * 51));
+		friendButtonGroup = new ButtonGroup();
+
+		for (int i = 0; i < friendsNumber; i++) {
+			FriendsOrGroups userFriend = userInfo.getFriends().get(i);
+			String fAvatar = userFriend.getAvatar(), fName = userFriend.getName(), fTrades = userFriend.getTrades(),
+					fid = userFriend.getId(), fOnline = userFriend.getStatus();
+			friend.put(fid, new FriendModel(fAvatar, fName, fTrades, fid, fOnline));
+			friend.get(fid).setBounds(0, i * 51, 288, 51);
+			friend.get(fid).addMouseListener(new MouseListener() {
+				@Override
+				public void mouseReleased(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						withFriend.put(fid, new ChatWithFriend(userInfo.getUserId(), userInfo.getUserName(), fid,
+								fAvatar, fName, fTrades, false));
+					}
+				}
+			});
+			friendPane.add(friend.get(fid));
+			friendButtonGroup.add(friend.get(fid));
+		}
+	}
+	
+	void updateGroupModel() {
+		int groupsNumber = userInfo.getGroups().size();
+		groupPane = new JPanel();
+		groupPane.setLayout(null);
+		groupPane.setBounds(0, 0, 288, groupsNumber * 51);
+		groupPane.setPreferredSize(new Dimension(270, groupsNumber * 51));
+		groupButtonGroup = new ButtonGroup();
+		for (int j = 0; j < groupsNumber; j++) {
+			FriendsOrGroups userGroup = userInfo.getGroups().get(j);
+			String gAvatar = userGroup.getAvatar(), gName = userGroup.getName(), gTrades = userGroup.getTrades(),
+					gid = userGroup.getId();
+			group.put(gid, new GroupModel(gAvatar, gName, gTrades, gid, "./Data/Avatar/Group/"));
+			group.get(gid).setBounds(0, j * 51, 288, 51);
+			group.get(gid).addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						withGroup.put(gid, new ChatWithFriend(userInfo.getUserId(), userInfo.getUserName(), gid,
+								gAvatar, gName, gTrades, true));
+					}
+				}
+			});
+			groupPane.add(group.get(gid));
+			groupPane.setVisible(true);
+			groupButtonGroup.add(group.get(gid));
+		}
+	}
 	private void init() {
 		/**
 		 * Panel up
@@ -130,7 +227,7 @@ public final class MainInterface extends JFrame implements ActionListener {
 		upPanel = new JPanel();
 		upPanel.setLayout(null);
 		upPanel.setBounds(0, 0, 288, 140);
-		upPanel.setBackground(new Color(6, 157, 214));
+		//upPanel.setBackground(new Color(6, 157, 214));
 		/**
 		 * Button close
 		 */
@@ -284,10 +381,10 @@ public final class MainInterface extends JFrame implements ActionListener {
 		});
 		
 		friendManage=new JButton();
-		friendManage.setBounds(77,90,32,31);
+		friendManage.setBounds(77,90,32,32);
 		friendManage.setVisible(true);
-		friendManage.setToolTipText("加好友");
-		friendManage.setIcon(new ImageIcon("./res/Misc/FileManager/friendManage_normol.png")); // normal
+		friendManage.setToolTipText("好友管理");
+		friendManage.setIcon(new ImageIcon("./res/Misc/FileManager/friendManage_normal.png")); // normal
 																						// png
 //		friendManage.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png")); // rollover
 //																								// png
@@ -299,6 +396,48 @@ public final class MainInterface extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
 				UserAdd friendAdd=new UserAdd(userInfo);
+			}
+		});
+		
+		infoManage=new JButton();
+		infoManage.setBounds(110,90,32,32);
+		infoManage.setVisible(true);
+		infoManage.setToolTipText("资料管理");
+		infoManage.setIcon(new ImageIcon("./res/Misc/FileManager/infoManage_normal.png")); // normal
+						
+		// png
+//		friendManage.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png")); // rollover
+//																								// png
+//		friendManage.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png")); // press
+//																							// png
+		infoManage.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				InfoManage manage=new InfoManage(userInfo);
+			}
+		});
+		
+		refreshManage=new JButton();
+		refreshManage.setBounds(143,90,32,32);
+		refreshManage.setVisible(true);
+		refreshManage.setToolTipText("刷新");
+		refreshManage.setIcon(new ImageIcon("./res/Misc/FileManager/refreshManage_normal.png")); // normal
+						
+		// png
+//		friendManage.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png")); // rollover
+//																								// png
+//		friendManage.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png")); // press
+//																							// png
+		refreshManage.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				userInfo=InteractWithServer.getUserInfo(userInfo.getUserId());
+				updateFriendModel();
+				updateGroupModel();
 			}
 		});
 		/**
@@ -378,100 +517,12 @@ public final class MainInterface extends JFrame implements ActionListener {
 		/**
 		 * friend model
 		 */
-		int friendsNumber = userInfo.getFriends().size();
-		friendPane = new JPanel();
-		friendPane.setLayout(null);
-		friendPane.setBounds(0, 0, 288, friendsNumber * 51);
-		friendPane.setPreferredSize(new Dimension(270, friendsNumber * 51));
-		friendButtonGroup = new ButtonGroup();
-
-		for (int i = 0; i < friendsNumber; i++) {
-			FriendsOrGroups userFriend = userInfo.getFriends().get(i);
-			String fAvatar = userFriend.getAvatar(), fName = userFriend.getName(), fTrades = userFriend.getTrades(),
-					fid = userFriend.getId(), fOnline = userFriend.getStatus();
-			friend.put(fid, new FriendModel(fAvatar, fName, fTrades, fid, fOnline));
-			friend.get(fid).setBounds(0, i * 51, 288, 51);
-			friend.get(fid).addMouseListener(new MouseListener() {
-				@Override
-				public void mouseReleased(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() == 2) {
-						withFriend.put(fid, new ChatWithFriend(userInfo.getUserId(), userInfo.getUserName(), fid,
-								fAvatar, fName, fTrades, false));
-					}
-				}
-			});
-			friendPane.add(friend.get(fid));
-			friendButtonGroup.add(friend.get(fid));
-		}
+		updateFriendModel();
 		/**
 		 * group model
 		 */
-		int groupsNumber = userInfo.getGroups().size();
-		groupPane = new JPanel();
-		groupPane.setLayout(null);
-		groupPane.setBounds(0, 0, 288, groupsNumber * 51);
-		groupPane.setPreferredSize(new Dimension(270, groupsNumber * 51));
-		groupButtonGroup = new ButtonGroup();
-		for (int j = 0; j < groupsNumber; j++) {
-			FriendsOrGroups userGroup = userInfo.getGroups().get(j);
-			String gAvatar = userGroup.getAvatar(), gName = userGroup.getName(), gTrades = userGroup.getTrades(),
-					gid = userGroup.getId();
-			group.put(gid, new GroupModel(gAvatar, gName, gTrades, gid, "./Data/Avatar/Group/"));
-			group.get(gid).setBounds(0, j * 51, 288, 51);
-			group.get(gid).addMouseListener(new MouseListener() {
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-
-				}
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() == 2) {
-						withGroup.put(gid, new ChatWithFriend(userInfo.getUserId(), userInfo.getUserName(), gid,
-								gAvatar, gName, gTrades, true));
-					}
-				}
-			});
-			groupPane.add(group.get(gid));
-			groupPane.setVisible(true);
-			groupButtonGroup.add(group.get(gid));
-		}
+		updateGroupModel();
+		
 		friendScrollPane = new JScrollPane(friendPane);
 		// 设置滚动条样式
 		friendScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI());
