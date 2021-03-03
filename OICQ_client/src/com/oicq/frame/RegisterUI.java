@@ -56,8 +56,16 @@ public class RegisterUI extends JFrame {
 		close.setIcon(new ImageIcon("./res/Misc/FileManager/closebutton_normal.png"));
 		close.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png"));
 		close.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png"));
-		ExitListenter closeListenter = new ExitListenter();
-		close.addActionListener(closeListenter);
+//		ExitListenter closeListenter = new ExitListenter();
+//		close.addActionListener(closeListenter);
+		close.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				dispose();
+			}
+		});
 		
 		minimize = new JButton();
 		minimize.setMargin(new Insets(0, 0, 0, 0));
