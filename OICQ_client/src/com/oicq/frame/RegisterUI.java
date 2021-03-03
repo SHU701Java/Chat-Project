@@ -189,7 +189,7 @@ public class RegisterUI extends JFrame {
 		addMouseListener(adapter);
 		setSize(450, 500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Already there
-		// setExtendedState(JFrame.MAXIMIZED_BOTH); //set Jframe size？
+		setExtendedState(JFrame.MAXIMIZED_BOTH); //set Jframe size？
 		setUndecorated(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
