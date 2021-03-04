@@ -10,10 +10,10 @@ import javax.swing.*;
 import com.oicq.client.ChatThread;
 import com.oicq.client.InteractWithServer;
 
-/**   
- * @ClassName:  ExitListenter  
- * @Description: 用于登录界面和主界面的退出按钮 
- */  
+/**
+ * @ClassName: ExitListenter
+ * @Description: 用于登录界面和主界面的退出按钮
+ */
 class ExitListenter implements ActionListener {
 
 	@Override
@@ -22,10 +22,11 @@ class ExitListenter implements ActionListener {
 	}
 
 }
-/**   
- * @ClassName:  ExitNowFrameListenter  
- * @Description: 用于退出当前frame窗口 
- */  
+
+/**
+ * @ClassName: ExitNowFrameListenter
+ * @Description: 用于退出当前frame窗口
+ */
 class ExitNowFrameListenter implements ActionListener {
 	private JFrame now;
 
@@ -39,10 +40,10 @@ class ExitNowFrameListenter implements ActionListener {
 	}
 }
 
-/**   
- * @ClassName:  LoginMouseMove
- * @Description: 用于使窗口可以点击任意位置移动 
- */  
+/**
+ * @ClassName: LoginMouseMove
+ * @Description: 用于使窗口可以点击任意位置移动
+ */
 class LoginMousemove extends MouseAdapter {
 	private int offsetX, offsetY;
 	private boolean isCanMove;
@@ -69,10 +70,10 @@ class LoginMousemove extends MouseAdapter {
 	}
 }
 
-/**   
- * @ClassName:  LoginListener
- * @Description: 获得登录信息并创建主界面 
- */  
+/**
+ * @ClassName: LoginListener
+ * @Description: 获得登录信息并创建主界面
+ */
 class LoginListener implements ActionListener {
 	JFrame now;
 	JTextField userId;
@@ -131,24 +132,22 @@ class LoginListener implements ActionListener {
 						if (isRemeber) {
 							try {
 								FileOutputStream out = new FileOutputStream("./Data/UserInfo.uif");
-								for(int i=0;i<userIdString.length();i++){
+								for (int i = 0; i < userIdString.length(); i++) {
 									char t = userIdString.charAt(i);
 									t ^= 'I';
 									out.write(t);
 								}
 								out.write('\n');
-								//out.write(userIdString.getBytes());								out.write('\n');
-								for(int i=0;i<userPasswordString.length();i++){
+								// out.write(userIdString.getBytes()); out.write('\n');
+								for (int i = 0; i < userPasswordString.length(); i++) {
 									char t = userPasswordString.charAt(i);
 									t ^= 'P';
 									out.write(t);
 								}
 
-								/*if (isAutoLog) {
-									out.write('1');
-								} else {
-									out.write('0');
-								}*/
+								/*
+								 * if (isAutoLog) { out.write('1'); } else { out.write('0'); }
+								 */
 								out.close();
 							} catch (Exception e) {
 								System.out.println("ListenterClass/actionPerformed Error " + e);
@@ -173,10 +172,11 @@ class LoginListener implements ActionListener {
 		}).start();
 	}
 }
-/**   
- * @ClassName:  SendFriend  
- * @Description: 对好友发送信息   
- */  
+
+/**
+ * @ClassName: SendFriend
+ * @Description: 对好友发送信息
+ */
 class SendFriend implements ActionListener {
 	private JTextArea message;
 	private String mName;
@@ -193,13 +193,13 @@ class SendFriend implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// 发送消息
-		if(this.message.getText().trim().length()!=0){
-		now.addMessage(mName, new Date().toString(), this.message.getText(), false);
-		ChatThread.getDataStream().send(this.message.getText(), fid, isGroup);
-		this.message.setText("");
+		if (this.message.getText().trim().length() != 0) {
+			now.addMessage(mName, new Date().toString(), this.message.getText(), false, true);
+			ChatThread.getDataStream().send(this.message.getText(), fid, isGroup);
+			this.message.setText("");
+		} else {
+			JOptionPane.showMessageDialog(now, "发送消息不能为空，请重新输入");
 		}
-		else
-			{JOptionPane.showMessageDialog(now, "发送消息不能为空，请重新输入");}
 	}
 
 	public void setMessage(JTextArea message) {

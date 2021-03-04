@@ -33,8 +33,7 @@ public final class ChatExecute {
 	/**
 	 * @Title: execute
 	 * @Description:开始处理服务端发送已封装的消息内容
-	 * @param: scMessage
-	 *             接收到的消息内容
+	 * @param: scMessage 接收到的消息内容
 	 * @return: void
 	 */
 	public static void execute(String scMessage) {
@@ -59,7 +58,7 @@ public final class ChatExecute {
 				// 展示在对应好友聊天面板中
 				if (model.containsKey(fromId)) {
 					model.get(fromId).addMessage(MainInterface.getFriend().get(fromId).getfName(), res[0], message,
-							false);
+							false, false);
 				}
 			}
 			// 接收到的消息是从某个群发送来的
@@ -68,8 +67,9 @@ public final class ChatExecute {
 				if (model.containsKey(toId)) {
 					// 聊天面板显示用户昵称
 					String fromString = MainInterface.getFriend().containsKey(fromId)
-							? MainInterface.getFriend().get(fromId).getfName() : ("陌生人:" + fromId);
-					model.get(toId).addMessage(fromString, res[0], message, false);
+							? MainInterface.getFriend().get(fromId).getfName()
+							: ("陌生人:" + fromId);
+					model.get(toId).addMessage(fromString, res[0], message, false, false);
 				}
 			}
 		} // 接收的内容是为了改变用户状态（在线/离线）

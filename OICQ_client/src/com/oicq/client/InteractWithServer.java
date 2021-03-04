@@ -131,7 +131,7 @@ public final class InteractWithServer {
 	/**
 	 * @Title: registerID
 	 * @Description:向服务器发送请求注册账号
-	 * @param: user_name
+	 * @param: userName
 	 *             用户名
 	 * @param: password
 	 *             用户密码未加密
@@ -139,14 +139,28 @@ public final class InteractWithServer {
 	 *             用户邮箱
 	 * @return: String  新用户ID
 	 */
-	public static String registerID(String user_name, String password, String email) {
-		return (String)postToServer("registerID```" + user_name + "```" + password + "```" + email);
+	public static String registerID(String userName, String password, String email) {
+		return (String)postToServer("registerID```" + userName + "```" + password + "```" + email);
 	}
+	
+	/**
+	 * @Title: createGroupID
+	 * @Description:向服务器发送创建群聊
+	 * @param: userName
+	 *             用户名
+	 * @param: groupName
+	 *             群名字
+	 * @return: String  群ID
+	 */
+	public static String createGroupID(String userName, String groupName) {
+		return (String)postToServer("createGroupID```" + userName + "```" + groupName);
+	}
+
 
 	/**
 	 * @Title: ForgetPwdUI
 	 * @Description:向服务器发送请求修改密码
-	 * @param: user_name
+	 * @param: userName
 	 *             用户名
 	 * @param: password
 	 *             用户密码未加密
@@ -154,8 +168,8 @@ public final class InteractWithServer {
 	 *             用户邮箱
 	 * @return: String  新用户ID
 	 */
-	public static boolean ForgetPwd(String user_name, String password, String email) {
-		return (boolean)postToServer("ForgetPwd```" + user_name + "```" + password + "```" + email);
+	public static boolean ForgetPwd(String userName, String password, String email) {
+		return (boolean)postToServer("ForgetPwd```" + userName + "```" + password + "```" + email);
 	}
 	
 	/**

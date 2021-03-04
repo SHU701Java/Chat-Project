@@ -243,7 +243,7 @@ public final class DataCheck {
 		else
 			sqlString = "select uchat_fromid fromid,uchat_toid toid,uchat_message message,uchat_datetime timer from dw_userchat where (uchat_fromid ="
 					+ fromId + " and uchat_toid = " + toId + ") or (uchat_fromid = " + toId + " and uchat_toid = "
-					+ fromId + ")";
+					+ fromId + ") order by uchat_id";
 		ResultSet resultSet = dataCon.getFromDatabase(sqlString);
 		try {
 			String tmp = "";
@@ -277,6 +277,25 @@ public final class DataCheck {
 		}
 		System.out.println("log: the largest userID is " + res);
 		int nxt = Integer.parseInt(res);
+		return String.valueOf(nxt + 1);
+	}
+	
+	public String getNewGroupID() {
+		DataBaseConnection con = new DataBaseConnection();
+		ResultSet resultSet = con.getFromDatabase("select group_id from dw_group order by group_id DESC limit 1");
+		String res = "NULL";
+		try {
+			if (resultSet.next())
+				res = resultSet.getString("user_id");
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("log: the largest userID is " + res);
+		int nxt = 9999;
+		if (!res.equals("NULL"))	
+			nxt = Integer.parseInt(res);
 		return String.valueOf(nxt + 1);
 	}
 

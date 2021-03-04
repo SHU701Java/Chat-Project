@@ -289,7 +289,7 @@ public final class ChatWithFriend extends JFrame {
 					: MainInterface.getFriend().containsKey(res[1]) ? MainInterface.getFriend().get(res[1]).getfName()
 							: ("陌生人:" + res[1]);
 			if (res.length == 4) {
-				addMessage(fromName, res[0], res[3], true);
+				addMessage(fromName, res[0], res[3], true, res[1].equals(mid));
 			}
 		}
 
@@ -384,13 +384,18 @@ public final class ChatWithFriend extends JFrame {
 		this.messageNum = messagenum;
 	}
 
-	public void addMessage(String userName, String sendTime, String message, boolean isOld) {
+	public void addMessage(String userName, String sendTime, String message, boolean isOld, boolean mySelf) {
 		userName = "<html><p style =\"font-size:10px;color:#0000ff\">" + userName;
 		sendTime = "<span style=\"color:#cc9966\"> " + sendTime + "</span></p></html>";
 		message = "<html><p style =\"font-size:14px;" + (isOld ? "color:#969696" : "") + "\">" + message
 				+ "</p><br/></html>";
-		showBox.add(new JLabel(userName + sendTime));
-		showBox.add(new JLabel(message));
+		JLabel who = new JLabel(userName + sendTime), msg = new JLabel(message);
+		if (mySelf) {
+			who.setHorizontalAlignment(SwingConstants.RIGHT);
+			msg.setHorizontalAlignment(SwingConstants.RIGHT);
+		}
+		showBox.add(who);
+		showBox.add(msg);
 		// showPanel.getVerticalScrollBar().setValue(showPanel.getVerticalScrollBar().getMaximum());
 		showPanel.getViewport().setViewPosition(new Point(0, showPanel.getHeight() + 100000));
 	}

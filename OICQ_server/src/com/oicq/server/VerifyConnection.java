@@ -41,6 +41,7 @@ public final class VerifyConnection implements Runnable {
 	 * @Fields userSocket : 用户Socket对象
 	 */
 	private Socket userSocket;
+
 	/**
 	 * @Title: VerifyConnection
 	 * @Description: 初始化套接字对象
@@ -146,7 +147,8 @@ public final class VerifyConnection implements Runnable {
 					 * res[0]：ForgetPwd、res[1]：userID、res[2]：pwd res[3]: email
 					 */
 					DataBaseConnection con = new DataBaseConnection();
-					String sql = "select * from dw_user where user_id = " + res[1] + " and user_email = \"" + res[3] + "\"";
+					String sql = "select * from dw_user where user_id = " + res[1] + " and user_email = \"" + res[3]
+							+ "\"";
 					System.out.println("forget sql: " + sql);
 					try {
 						result = con.getFromDatabase(sql).next();
@@ -155,12 +157,12 @@ public final class VerifyConnection implements Runnable {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					if ((boolean)result == true) {
+					if ((boolean) result == true) {
 						sql = "update dw_user set user_password = \"" + res[2] + "\" where user_id = " + res[1];
 						System.out.println("the updated sql is " + sql);
 						con.putToDatabase(sql);
 					}
-					
+
 					con.close();
 				}
 			} else if (field.startsWith("friendRequest")) {
@@ -178,6 +180,27 @@ public final class VerifyConnection implements Runnable {
 					 * res[0]：groupRequest、res[1]：fromID、res[2]：toID
 					 */
 					result = check.groupRequest(res[1], res[2]);
+				}
+			} else if (field.startsWith("createGroupID")) {
+				String res[] = field.split("```", 3);
+				if (res.length == 3) {
+					/*
+					 * res[0]：registerID、res[1]：userName、res[2]：groupName
+					 */
+					DataBaseConnection con = new DataBaseConnection();
+					String groupID = check.getNewGroupID();
+					String[] defaultInfo = { groupID, res[2], res[1], "大家一起来聊天",
+							"http://static.dreamwings.cn/wp-content/uploads/2016/05/236657.jpg",
+							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) };
+					String sql = "insert into dw_group values(\"" + groupID + "\"";
+					for (int i = 1; i < defaultInfo.length; ++i)
+						sql += ", \"" + defaultInfo[i] + "\"";
+					sql += ")";
+					System.out.println("In createGroupID the sql is " + sql);
+					con.putToDatabase(sql);
+					con.putToDatabase("insert into dw_usergroup values(" + res[1] + ", " + groupID + ")");
+					result = groupID;
+					con.close();
 				}
 			}
 			break;
