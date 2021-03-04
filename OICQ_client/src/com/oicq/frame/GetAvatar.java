@@ -1,8 +1,3 @@
-/**
- * Create at 2016.11.23 20.50
- * by qianqian
- * 利用头像URL获取ImageIcon对象
- */
 package com.oicq.frame;
 
 import java.io.File;

@@ -1,12 +1,3 @@
-/**  
- * All rights Reserved, Designed By www.ireson.cn
- * @Title:  GroupModel.java
- * @Package com.oicq.frame   
- * @Description: 存放GroupModel类
- * @author: 艾尔森 
- * @version V1.0 
- * @Copyright: 2016 www.irson.cn Inc. All rights reserved. 
- */  
 package com.oicq.frame;
 
 import java.awt.Image;
@@ -18,11 +9,6 @@ import javax.swing.JRadioButton;
 /**   
  * @ClassName:  GroupModel 
  * @Description: 用于主界面显示群的相关信息 
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
  */  
 public class GroupModel extends JRadioButton {
 	/**

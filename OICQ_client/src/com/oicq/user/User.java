@@ -1,29 +1,14 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		User.java
- * @Package:	com.oicq.user
- * @Description:用户信息对象
- * @author:		千千
- * @date:		2016/11/20 17:44
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
-
 package com.oicq.user;
 
 import java.util.Vector;
 
 import com.oicq.config.UserInfo;
 
-/**
- * @ClassName: User
- * @Description:User Info.
- * @author: 千千
- * @date: 2016/11/20 17:44
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
- */
+
+/**   
+ * @ClassName:  User
+ * @Description: 用户信息对象
+ */  
 public final class User extends UserInfo {
 
 	/**

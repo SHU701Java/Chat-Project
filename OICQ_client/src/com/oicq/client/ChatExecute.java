@@ -1,14 +1,3 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		ChatExecute.java
- * @Package:	com.oicq.client
- * @Description:处理从服务端发送来的消息
- * @author:		千千
- * @date:		2016/11/24 18:30
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
-
 package com.oicq.client;
 
 import java.util.HashMap;
@@ -17,13 +6,7 @@ import com.oicq.frame.MainInterface;
 
 /**
  * @ClassName: ChatExecute
- * @Description:Processes the messages sent from the server to determine which
- *                        window to display.
- * @author: 千千
- * @date: 2016/11/24 18:30
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
+ * @Description:处理从服务端发送来的消息
  */
 
 public final class ChatExecute {

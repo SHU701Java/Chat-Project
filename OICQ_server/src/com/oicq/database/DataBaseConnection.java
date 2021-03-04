@@ -50,11 +50,11 @@ public final class DataBaseConnection {
 	 */
 	public DataBaseConnection() {
 		// 数据库驱动名
-		String dbDriver = "com.mysql.jdbc.Driver";
+		String dbDriver = "com.mysql.cj.jdbc.Driver";
 
 		// 数据库所在域
 		String dbUrl = "jdbc:mysql://" + ServerInfo.MYSQL_IP + ":" + ServerInfo.MYSQL_PORT + "/" + ServerInfo.DB_NAME
-				+ "?useUnicode=true&characterEncoding=UTF-8";
+				+ "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
 
 		try {
 			// 加载驱动

@@ -1,13 +1,4 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		ChatVerify.java
- * @Package:	com.oicq.config
- * @Description:用作登录验证所要发送的对象，实现了 java.io.Serializable 接口
- * @author:		千千
- * @date:		2016/11/20 19:06
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
+
 
 package com.oicq.config;
 
@@ -18,13 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @ClassName: ChatVerify
- * @Description:Used as the object to be authenticated by login, the
- *                   java.io.Serializable interface is implemented.
- * @author: 千千
- * @date: 2016/11/20 19:06
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
+ * @Description:用作登录验证所要发送的对象，实现了 java.io.Serializable 接口
  */
 
 public final class ChatVerify implements Serializable {

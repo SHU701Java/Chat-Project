@@ -1,13 +1,3 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		ChatThread.java
- * @Package:	com.oicq.client
- * @Description:连接到服务器聊天端口
- * @author:		千千
- * @date:		2016/11/23 13:31
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
 
 package com.oicq.client;
 
@@ -18,12 +8,7 @@ import com.oicq.config.ServerInfo;
 
 /**
  * @ClassName: ChatThread
- * @Description:Connect to the server chat port
- * @author: 千千
- * @date: 2016/11/23 13:31
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
+ * @Description: 连接到服务器聊天端口
  */
 
 public final class ChatThread implements Runnable {

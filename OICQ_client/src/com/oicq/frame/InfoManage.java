@@ -33,11 +33,6 @@ import com.sun.org.apache.xml.internal.security.Init;
 /**   
  * @ClassName:  infoManage  
  * @Description: 好友群聊简易添加界面  仿照主界面downPanel的左右设计
- * @author: Zztrans
- * @date: 2021-02
- *   
- * JFrame
- * @Copyright: Inc. All rights reserved.  
  */  
 
 public class InfoManage extends JFrame{

@@ -1,13 +1,3 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		UserInfo.java
- * @Package:	com.oicq.config
- * @Description:主要是为服务端与客户端之间传输用户个人信息以及好友列表、群列表而创建的可序列化类(实现了 java.io.Serializable 接口)
- * @author:		千千
- * @date:		2016/11/20 14:29
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
 
 package com.oicq.config;
 
@@ -16,15 +6,7 @@ import java.util.Vector;
 
 /**
  * @ClassName: UserInfo
- * @Description:Mainly between the server and the client transmission of
- *                     personal information and friends list, group list and
- *                     create a java.io.Serializable class (to achieve the
- *                     java.io.Serializable interface).
- * @author: 千千
- * @date: 2016/11/20 14:29
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
+ * @Description: 主要是为服务端与客户端之间传输用户个人信息以及好友列表、群列表而创建的可序列化类(实现了 java.io.Serializable 接口)
  */
 public class UserInfo implements Serializable {
 	/**

@@ -1,13 +1,3 @@
-/**  
- * All rights Reserved, Designed By www.ireson.cn
- * @Title:  MainInterface.java
- * @Package com.oicq.frame   
- * @Description: 存放主界面类   
- * @author: 艾尔森
- * @date:  pm 3:40:00
- * @version V1.0 
- * @Copyright: 2016 www.irson.cn Inc. All rights reserved. 
- */  
 package com.oicq.frame;
 
 import java.awt.*;
@@ -29,17 +19,8 @@ import com.oicq.user.User;
 /**   
  * @ClassName:  MainInterface  
  * @Description: 用于显示主界面 用户的相关信息和好友等   
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
  */  
 public final class MainInterface extends JFrame implements ActionListener {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel upPanel, downPanel, friendPane, groupPane;
 	private JButton minimize, close, tradesButton, peopelButtonExtend, groupButtonExtend;
@@ -227,7 +208,7 @@ public final class MainInterface extends JFrame implements ActionListener {
 		upPanel = new JPanel();
 		upPanel.setLayout(null);
 		upPanel.setBounds(0, 0, 288, 140);
-		//upPanel.setBackground(new Color(6, 157, 214));
+		upPanel.setBackground(new Color(205, 205, 205));
 		/**
 		 * Button close
 		 */

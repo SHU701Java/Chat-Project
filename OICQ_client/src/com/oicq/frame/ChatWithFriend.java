@@ -1,12 +1,3 @@
-/**  
- * All rights Reserved, Designed By www.ireson.cn
- * @Title:  ChatWithFriend.java
- * @Package com.oicq.frame   
- * @Description: 存放聊天窗口类 
- * @author: 艾尔森 
- * @version V1.0 
- * @Copyright: 2016 www.irson.cn Inc. All rights reserved. 
- */  
 package com.oicq.frame;
 
 import java.awt.Color;
@@ -25,11 +16,6 @@ import com.oicq.client.InteractWithServer;
 /**   
  * @ClassName:  ChatWithFriend  
  * @Description: 显示聊天窗口  
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
  */  
 public final class ChatWithFriend extends JFrame {
 	/**

@@ -1,14 +1,3 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		DataStream.java
- * @Package:	com.oicq.client
- * @Description:与服务器聊天端口建立通讯，可以接收来自服务器的消息，也可以发送消息到服务器
- * @author:		千千
- * @date:		2016/11/22 21:45
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
-
 package com.oicq.client;
 
 import java.io.DataInputStream;
@@ -18,14 +7,7 @@ import java.net.Socket;
 
 /**
  * @ClassName: DataStream
- * @Description:Set up communication with the server chat port, can receive
- *                  messages from the server, you can also send messages to the
- *                  server.
- * @author: 千千
- * @date: 2016/11/22 21:45
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
+ * @Description: 与服务器聊天端口建立通讯，可以接收来自服务器的消息，也可以发送消息到服务器
  */
 
 public final class DataStream implements Runnable {

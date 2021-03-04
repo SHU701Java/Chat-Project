@@ -1,80 +1,55 @@
-/**  
- * All rights Reserved, Designed By www.ireson.cn
- * @Title:  Login.java
- * @Package com.oicq.frame   
- * @Description: 登录界面，获取用户登录信息使用户登录   
- * @author: 艾尔森 
- * @version V1.0 
- * @Copyright: 2016 www.irson.cn Inc. All rights reserved. 
- */  
 package com.oicq.frame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-
-import java.awt.Image;
-
 import java.awt.Insets;
-
-import java.awt.Toolkit;
-
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
-
 import java.awt.event.FocusEvent;
-
 import java.awt.event.FocusListener;
 import java.io.FileInputStream;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import com.oicq.client.InteractWithServer;
+import com.oicq.config.ChatVerify;
+import com.oicq.util.getImage;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 /**   
  * @ClassName:  Login  
- * @Description: 登录界面   
- * @author: 艾尔森 
- * @date: 2016-11
- *   
- * JFrame
- * @Copyright: 2016 www.irson.cn Inc. All rights reserved.  
+ * @Description: 用于登录界面和主界面的退出按钮 
  */  
-public final class Login extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JTextField userId;
-	private JLabel /* logo, */ remeberPasswd, autoLogin, headPortrait;
-	private JPasswordField passwd;
-	private JButton login, findPasswd, register, close, minimize;
-	private JCheckBox remeberPasswdCheckBox, autoLoginCheckBox;
-	private JPanel upPanel, downPanel, textFiledPanel;
-	private LoginListener l;
-	private String username, userPasswd;
 
-	private void init() {
-		/**   
-		 * @Title: init()  
-		 * @Description: 初始化界面组件  
-		 * @return: void
-		 * @throws   
-		 */  
-		/*
-		 * panel up
+public final class Login extends JFrame {
+	private JFrame thisJFrame;
+	private LoginListener l;
+	private static final long serialVersionUID = 1L;
+	private static final int DIALOG_WIDTH=400;
+    private static final int DIALOG_HEIGHT=320;
+    private static final int DIALOG_HEIGHT_EXTEND=500;
+    private JButton minimize, close;
+    private final JScrollPane contentPanel = new JScrollPane();
+    private final JPanel upPanel;
+    private JCheckBox remeberPasswdCheckBox, autoLoginCheckBox;
+    private JTextField userID_1, userID_2,userID_3,email_address,email;
+    private JPasswordField passwd_1, passwd_2,passwd_3;
+    private String username, userPasswd;
+
+    public Login() {
+    	/*
+		 * close
 		 */
-		// 1.
-		upPanel = new JPanel();
+    	thisJFrame = this;
+    	
+    	upPanel = new JPanel();
 		upPanel.setLayout(null);
-		upPanel.setBounds(0, 0, 430, 183);
+		upPanel.setBounds(0, 0, 400, 28);
 		upPanel.setBackground(new Color(6, 157, 214));
-		/*
-		 * button close
-		 */
+		
 		close = new JButton();
 		close.setMargin(new Insets(0, 0, 0, 0));
-		close.setBounds(402, 0, 28, 28);
+		close.setBounds(372, 0, 28, 28);
 		close.setContentAreaFilled(false); // set don't draw message area
 		close.setBorderPainted(false); // set don't draw border
 		close.setFocusPainted(false); // set don't draw focus painted
@@ -84,12 +59,13 @@ public final class Login extends JFrame {
 		close.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png"));
 		ExitListenter closeListenter = new ExitListenter();
 		close.addActionListener(closeListenter);
+		
 		/*
-		 * button minimize
+		 * minimize
 		 */
 		minimize = new JButton();
 		minimize.setMargin(new Insets(0, 0, 0, 0));
-		minimize.setBounds(374, 0, 28, 28);
+		minimize.setBounds(344, 0, 28, 28);
 		minimize.setContentAreaFilled(false);
 		minimize.setBorderPainted(false);
 		minimize.setFocusPainted(false);
@@ -98,199 +74,236 @@ public final class Login extends JFrame {
 		minimize.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/minbutton_hover.png"));
 		minimize.setPressedIcon(new ImageIcon("./res/Misc/FileManager/minbutton_down.png"));
 		minimize.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setExtendedState(JFrame.ICONIFIED);
 			}
 		});
-		/*
-		 * logo
-		 */
-		//
-		// logo = new JLabel();
-		// ImageIcon logoIcon = new ImageIcon("logo.png?");
-		// logoIcon.setImage(logoIcon.getImage().getScaledInstance(154, 68,
-		// Image.SCALE_DEFAULT));
-		// logo.setIcon(logoIcon);
-		// logo.setBounds(142, 65, 154, 68);
-		/*
-		 * panel down
-		 */
-		downPanel = new JPanel();
-		downPanel.setLayout(null);
-		downPanel.setBounds(0, 184, 430, 152);
-		downPanel.setBackground(new Color(255, 255, 255));
-		/*
-		 * label headPortrait
-		 */
-		headPortrait = new JLabel();
-		headPortrait.setBounds(44, 11, 82, 83);
-		String headPortraitPostion = "./res/tempheadportrait.jpg";
-		// Todo sometings get head portrait position
-		Image headPic = (new ImageIcon(headPortraitPostion)).getImage().getScaledInstance(82, 83, Image.SCALE_DEFAULT);
-		// ImageIcon headIcon = new ImageIcon(temp);
-		headPortrait.setIcon(new ImageIcon(headPic));
-		/*
-		 * panel textfieldpanel
-		 */
-		textFiledPanel = new JPanel();
-		textFiledPanel.setBounds(135, 11, 195, 62);
-		textFiledPanel.setLayout(null);
+		
+		upPanel.add(minimize);
+		upPanel.add(close);
+		add(upPanel);
+		
+		setUndecorated(true);
+    	setAlwaysOnTop(true);
+    	setResizable(false);
+    	setBounds(400,100,DIALOG_WIDTH,DIALOG_HEIGHT);
+    	
+    	getContentPane().setLayout(new BorderLayout());
+    	contentPanel.setBorder(new EmptyBorder(5,5,5,5));
+    	getContentPane().add(contentPanel,BorderLayout.CENTER);
+    	contentPanel.setLayout(null);
+    	contentPanel.setBackground(new Color(255, 255, 255));
 
-		/*
-		 * TextField userId
+		/** 注册延申
+		 *
 		 */
-		userId = new JTextField("账号");
-		userId.setBounds(0, 0, 195, 31);
-		userId.setForeground(Color.GRAY);
-		userId.addFocusListener(new FocusListener() {
+		JPanel panel = new JPanel();
+		panel.setBorder((Border) new TitledBorder(null, "\u6CE8\u518C\u7528\u6237", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(20, 330, 350, 150);
+		panel.setBackground(new Color(255, 255, 255));
+		contentPanel.add(panel);
+		panel.setLayout(null);
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				if (userId.getText().trim().equals("")) {
-					userId.setForeground(Color.GRAY);
-					userId.setText("账号");
-				}
-			}
+		JLabel label_3 = new JLabel("昵 称");
+		JLabel label_4 = new JLabel("密 码");
+        JLabel email_label = new JLabel("邮 箱");
+		label_3.setBounds(74, 28, 55, 18);
+		label_4.setBounds(74, 62, 55, 18);
+        email_label.setBounds(74,96,55,18);
+		panel.add(label_3);
+		panel.add(label_4);
+        panel.add(email_label);
+		userID_2 = new JTextField();
+		passwd_2 = new JPasswordField();
+        email = new JTextField();
+		userID_2.setBounds(125,25,150,25);
+		passwd_2.setBounds(125,60,150,25);
+		email.setBounds(125,95,150,25);
+		panel.add(userID_2);
+		panel.add(passwd_2);
+		panel.add(email);
+		userID_2.setColumns(10);
+		passwd_2.setColumns(10);
+        email.setColumns(10);
+		JButton btn_1 = new JButton("取 消");
+		JButton btn_2 = new JButton("确 认");
 
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				if (userId.getText().trim().equals("账号")) {
-					userId.setText("");
-					userId.setForeground(Color.BLACK);
-				}
-			}
-		});
-		/*
-		 * PasswordField passwd
-		 */
-		passwd = new JPasswordField("密码");
-		passwd.setBounds(0, 31, 195, 31);
-		passwd.setEchoChar((char) 0);
-		passwd.setForeground(Color.GRAY);
-		passwd.addFocusListener(new FocusListener() {
+		btn_1.setBounds(70,120,93,23);
+		btn_2.setBounds(200,120,93, 23);
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				if (String.valueOf(passwd.getPassword()).trim().equals("")) {
-					passwd.setEchoChar((char) 0);
-					passwd.setForeground(Color.GRAY);
-					passwd.setText("密码");
-				}
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				if (String.valueOf(passwd.getPassword()).trim().equals("密码")) {
-					passwd.setEchoChar('•');
-					passwd.setForeground(Color.BLACK);
-					passwd.setText("");
+		btn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				userID_2.setText("");
+				passwd_2.setText("");
+				if(Login.this.getHeight()==DIALOG_HEIGHT_EXTEND){
+					Login.this.setSize(DIALOG_WIDTH,DIALOG_HEIGHT);
 				}
 			}
 		});
-		/*
-		 * Button register
-		 */
-		// 点击注册账号按钮，打开注册账号的网页
-		register = new JButton();
-		register.setMargin(new Insets(0, 0, 0, 0));
-		register.setBounds(340, 19, 51, 16);
-		register.setContentAreaFilled(false);
-		register.setBorderPainted(false);
-		register.setIcon(new ImageIcon("./res/Loginpanel2/zhuce.png"));
-		register.setRolloverIcon(new ImageIcon("./res/Loginpanel2/zhuce_hover.png"));
-		register.setPressedIcon(new ImageIcon("./res/Loginpanel2/zhuce_press.png"));
-		register.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg) {
-				// TODO 自动生成的方法存根
-					RegisterUI rg=new RegisterUI();
-					//URI uri = new URI("http://www.dreamwings.cn/oicq");
-					//Desktop.getDesktop().browse(uri);
-
+		btn_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ChatVerify user = new ChatVerify(userID_2.getText().trim(), String.valueOf(passwd_2.getPassword()).trim());
+				String userID = InteractWithServer.registerID(userID_2.getText(),passwd_2.getText(),email.getText());
+				JOptionPane.showMessageDialog(thisJFrame, "注册成功! 你的账号为" + userID);
+				userID_2.setText("");
+				passwd_2.setText("");
+				email.setText("");
+				if(Login.this.getHeight()==DIALOG_HEIGHT_EXTEND){
+					Login.this.setSize(DIALOG_WIDTH,DIALOG_HEIGHT);
+				}
 			}
-
 		});
-		/*
-		 * Button findPasswd
-		 */
-		// 点击找回密码的按钮，打开找回密码的网页
-		findPasswd = new JButton();
-		findPasswd.setMargin(new Insets(0, 0, 0, 0));
-		findPasswd.setBounds(340, 49, 51, 16);
-		findPasswd.setContentAreaFilled(false);
-		findPasswd.setBorderPainted(false);
-		findPasswd.setIcon(new ImageIcon("./res/Loginpanel2/mima.png"));
-		findPasswd.setRolloverIcon(new ImageIcon("./res/Loginpanel2/mima_hover.png"));
-		findPasswd.setPressedIcon(new ImageIcon("./res/Loginpanel2/mima_press.png"));
-		findPasswd.addActionListener(new ActionListener() {
 
+		panel.add(btn_1);
+		panel.add(btn_2);
+
+		//找回密码延生
+		JPanel findpanel = new JPanel();
+		findpanel.setBorder((Border) new TitledBorder(null, "忘 记 密 码", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		findpanel.setBounds(20, 320, 350, 160);
+		findpanel.setBackground(new Color(255, 255, 255));
+		contentPanel.add(findpanel);
+		findpanel.setLayout(null);
+		JLabel label_5 = new JLabel("账 号");
+		JLabel label_6 = new JLabel("新的密码");
+		JLabel label_7 = new JLabel("注册时的邮箱");
+		label_5.setBounds(14,28,100,18);
+		label_6.setBounds(14,62,100,18);
+		label_7.setBounds(14,94,100,18);
+		findpanel.add(label_5);
+		findpanel.add(label_6);
+		findpanel.add(label_7);
+		userID_3=new JTextField();
+		passwd_3=new JPasswordField();
+		email_address=new JTextField();
+		userID_3.setBounds(125,25,150,25);
+		passwd_3.setBounds(125,60,150,25);
+		email_address.setBounds(125,95,150,25);
+		findpanel.add(userID_3);
+		findpanel.add(passwd_3);
+		findpanel.add(email_address);
+		userID_3.setColumns(10);
+		passwd_3.setColumns(10);
+		email_address.setColumns(10);
+		JButton btn_3=new JButton("设 置 新 的 密 码");
+		btn_3.setBounds(135,130,120,20);
+		btn_3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO 自动生成的方法存根
-				new ForgetPwdUI();
+				ChatVerify user=new ChatVerify(userID_3.getText().trim(),String.valueOf(passwd_3.getPassword()).trim());
+				boolean isSuccess=InteractWithServer.ForgetPwd(user.getUserId(),user.getUserPassword(),email_address.getText().trim());
+				if(!isSuccess){
+					JOptionPane.showMessageDialog(thisJFrame, "对不起, 你的邮箱错误!");
+				} else{
+					JOptionPane.showMessageDialog(thisJFrame, "你的密码已设置成功!");
+				}
+				
 			}
-
 		});
-		/*
-		 * JCheckBox isRemeberPasswd
-		 */
+		findpanel.add(btn_3);
+		//找回密码到此结束
+
+    	//找回密码
+    	JButton btnsignfind = new JButton("找 回 密 码");
+
+		btnsignfind.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(Login.this.getHeight()==DIALOG_HEIGHT_EXTEND){
+					Login.this.setSize(DIALOG_WIDTH,DIALOG_HEIGHT);
+				}
+				else{
+					panel.setVisible(false);
+					findpanel.setVisible(true);
+					Login.this.setSize(DIALOG_WIDTH,DIALOG_HEIGHT_EXTEND);
+					//contentPanel.setViewportView(findpanel);
+					
+				}
+			}
+		});
+		btnsignfind.setBounds(260,280,93,23);
+		contentPanel.add(btnsignfind);
+
+    	JButton btnsignup = new JButton("注 册");
+    	btnsignup.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                if(Login.this.getHeight()==DIALOG_HEIGHT_EXTEND){
+                    Login.this.setSize(DIALOG_WIDTH,DIALOG_HEIGHT);
+                }
+                else{
+                    panel.setVisible(true);
+                    findpanel.setVisible(false);
+                	Login.this.setSize(DIALOG_WIDTH,DIALOG_HEIGHT_EXTEND);
+					//contentPanel.setViewportView(panel);
+                }
+            }
+        });
+    	btnsignup.setBounds(40,280,93,23);
+    	contentPanel.add(btnsignup);
+    	
+    	JButton btnsignin = new JButton("登 录");
+    	btnsignin.setBounds(150,280,93,23);
+    	contentPanel.add(btnsignin);
+    	
+    	autoLoginCheckBox = new JCheckBox();
+    	autoLoginCheckBox.setMargin(new Insets(0, 0, 0, 0));
+    	autoLoginCheckBox.setBounds(130,255,20,17);
+    	autoLoginCheckBox.setIcon(new ImageIcon("./res/Loginpanel2/checkbox_normal.png"));
+		autoLoginCheckBox.setRolloverIcon(new ImageIcon("./res/Loginpanel2/checkbox_hover.png"));
+		autoLoginCheckBox.setPressedIcon(new ImageIcon("./res/Loginpanel2/checkbox_press.png"));
+		autoLoginCheckBox.setSelectedIcon(new ImageIcon("./res/loginui/checkbox_tick_normal1.png"));
+		autoLoginCheckBox.setRolloverSelectedIcon(new ImageIcon("./res/loginui/checkbox_tick_highlight1.png"));
+    	
+		JLabel autoJLabel = new JLabel("自动登录");
+		autoJLabel.setForeground(Color.GRAY);
+		autoJLabel.setBounds(150,253,50,20);
+		contentPanel.add(autoJLabel);
+		contentPanel.add(autoLoginCheckBox);
+		
 		remeberPasswdCheckBox = new JCheckBox();
 		remeberPasswdCheckBox.setMargin(new Insets(0, 0, 0, 0));
-		remeberPasswdCheckBox.setBounds(133, 79, 17, 17);
+		remeberPasswdCheckBox.setBounds(220, 255, 20, 17);
 		remeberPasswdCheckBox.setIcon(new ImageIcon("./res/Loginpanel2/checkbox_normal.png"));
 		remeberPasswdCheckBox.setRolloverIcon(new ImageIcon("./res/Loginpanel2/checkbox_hover.png"));
 		remeberPasswdCheckBox.setPressedIcon(new ImageIcon("./res/Loginpanel2/checkbox_press.png"));
 		remeberPasswdCheckBox.setSelectedIcon(new ImageIcon("./res/loginui/checkbox_tick_normal1.png"));
 		remeberPasswdCheckBox.setRolloverSelectedIcon(new ImageIcon("./res/loginui/checkbox_tick_highlight1.png"));
-		/*
-		 * JCheckBox isAutoLogin
-		 */
-		autoLoginCheckBox = new JCheckBox();
-		autoLoginCheckBox.setMargin(new Insets(0, 0, 0, 0));
-		autoLoginCheckBox.setBounds(263, 79, 17, 17);
-		autoLoginCheckBox.setIcon(new ImageIcon("./res/Loginpanel2/checkbox_normal.png"));
-		autoLoginCheckBox.setRolloverIcon(new ImageIcon("./res/Loginpanel2/checkbox_hover.png"));
-		autoLoginCheckBox.setPressedIcon(new ImageIcon("./res/Loginpanel2/checkbox_press.png"));
-		autoLoginCheckBox.setSelectedIcon(new ImageIcon("./res/loginui/checkbox_tick_normal1.png"));
-		autoLoginCheckBox.setRolloverSelectedIcon(new ImageIcon("./res/loginui/checkbox_tick_highlight1.png"));
-		/*
-		 * label remeberPasswd
-		 */
-		remeberPasswd = new JLabel("记住密码");
-		remeberPasswd.setForeground(Color.GRAY);
-		remeberPasswd.setBounds(150, 79, 53, 15);
-		/*
-		 * label autoLogin
-		 */
-		autoLogin = new JLabel("自动登录");
-		autoLogin.setForeground(Color.GRAY);
-		autoLogin.setBounds(280, 79, 52, 15);
-		/*
-		 * Button login
-		 */
-		login = new JButton("登   录");
-		login.setMargin(new Insets(0, 0, 0, 0));
-		login.setBounds(135, 105, 195, 31);
-		login.setFocusPainted(false);
-		// login.setBorderPainted(false);
-		login.setBackground(new Color(9, 163, 220));// there will be annotation
-		/*
-		 * init actionListener
-		 */
-		l = new LoginListener();
-		l.setNow(this);
-		l.setUserId(userId);
-		l.setPasswd(passwd);
-		l.setIsRemeberPasswd(remeberPasswdCheckBox);
+		
+		JLabel remJLabel = new JLabel("记住密码");
+		remJLabel.setForeground(Color.GRAY);
+		remJLabel.setBounds(240,253,50,20);
+		contentPanel.add(remJLabel);
+		contentPanel.add(remeberPasswdCheckBox);
+    	/** 用于登录的账号密码
+    	 * 
+    	 */
+    	userID_1 = new JTextField();
+    	passwd_1 = new JPasswordField();
+    	
+        userID_1.setBounds(145, 180,150,25);
+        passwd_1.setBounds(145,222,150,25);
+        
+        contentPanel.add(userID_1);
+        contentPanel.add(passwd_1);
+        
+        userID_1.setColumns(10);
+        passwd_1.setColumns(10);
+        
+        /** login 
+         * 
+         */
+        l = new LoginListener();
+        l.setNow(this);
+        l.setUserId(userID_1);
+        l.setPasswd(passwd_1);
+        l.setIsRemeberPasswd(remeberPasswdCheckBox);
 		l.setIsAutoLogin(autoLoginCheckBox);
-		userId.addActionListener(l);
-		passwd.addActionListener(l);
-
-		login.addActionListener(l);
-		try {
+        userID_1.addActionListener(l);
+        passwd_1.addActionListener(l);
+        btnsignin.addActionListener(l);
+        
+        try {
 			FileInputStream in = new FileInputStream("./Data/UserInfo.uif");
 			int t;
 			username = "";
@@ -308,56 +321,48 @@ public final class Login extends JFrame {
 					t ^= 'P';
 					userPasswd = userPasswd + (char) t;
 				}
-				userId.setForeground(Color.BLACK);
-				userId.setText(username);
-				passwd.setEchoChar('•');
-				passwd.setForeground(Color.BLACK);
-				passwd.setText(userPasswd);
+				userID_1.setForeground(Color.BLACK);
+				userID_1.setText(username);
+				passwd_1.setEchoChar('•');
+				passwd_1.setForeground(Color.BLACK);
+				passwd_1.setText(userPasswd);
 				t = (char) in.read();
 				remeberPasswdCheckBox.setSelected(true);
 				if (t == '1') {
 					autoLoginCheckBox.setSelected(true);
-					// todo something auto login
 				}
 			}
 			in.close();
 		} catch (Exception e) {
-//			System.out.println("No user Info");
 		}
-	}
+        
+        
+        JLabel label_l = new JLabel("账 号");
+        JLabel label_2 = new JLabel("密 码");
+        
+        label_l.setBounds(95, 185, 54, 15);
+        label_2.setBounds(95, 225, 54, 15);
+        
+        contentPanel.add(label_l);
+        contentPanel.add(label_2);
+        
+        /** 图片
+         * 
+         */
+        JLabel lblNewLabel_2 = new JLabel("New label");     
+        lblNewLabel_2.setBounds(0, 25, 400, 136);
+        ImageIcon icon=new ImageIcon("src/back_img.jpeg");
+        icon=getImage.getImage(icon, lblNewLabel_2.getWidth(), lblNewLabel_2.getHeight());
+        lblNewLabel_2.setIcon((icon));
+        contentPanel.add(lblNewLabel_2);
 
-	public Login() {
-		// System.out.println("123456");
-		setLayout(null);
-		// 更改显示的小图标
-		setIconImage(Toolkit.getDefaultToolkit().createImage("./res/mainpanel/qq_logo.png"));
-		setTitle("登录窗口");
-		init();
-		upPanel.add(close);
-		upPanel.add(minimize);
-		// upPanel.add(logo);
-		add(upPanel);
-		downPanel.add(headPortrait);
-		textFiledPanel.add(userId);
-		textFiledPanel.add(passwd);
-		downPanel.add(textFiledPanel);
-		downPanel.add(register);
-		downPanel.add(findPasswd);
-		downPanel.add(remeberPasswdCheckBox);
-		downPanel.add(autoLoginCheckBox);
-		downPanel.add(remeberPasswd);
-		downPanel.add(autoLogin);
-		downPanel.add(login);
-		add(downPanel);
-		LoginMousemove adapter = new LoginMousemove();
+		//找回密码到此结束
+
+        LoginMousemove adapter = new LoginMousemove();
 		addMouseMotionListener(adapter);
 		addMouseListener(adapter);
-		setSize(430, 335);
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Already there
-		// setExtendedState(JFrame.MAXIMIZED_BOTH); //set Jframe size？
-		setUndecorated(true);
-		setLocationRelativeTo(null);
-		setResizable(false);
+		
 		setVisible(true);
-	}
+    	
+    }
 }

@@ -13,12 +13,7 @@ import com.oicq.config.ChatVerify;
 
 /**   
  * @ClassName:  RegisterUI  
- * @Description: 注册界面   
- * @author: 邬广星
- * @date: 2021-02
- *   
- * JFrame
- * @Copyright: 2021 www.wgx666.monster Inc. All rights reserved.  
+ * @Description: 注册界面  unused
  */  
 
 public class RegisterUI extends JFrame {

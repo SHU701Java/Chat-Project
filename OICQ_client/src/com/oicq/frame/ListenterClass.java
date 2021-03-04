@@ -1,11 +1,3 @@
-/**  
- * @Title:  Listenter.java
- * @Package com.oicq.frame   
- * @Description: 存放各种监听类 
- * @author: 艾尔森 
- * @version V1.0 
- * @Copyright: 2016 www.irson.cn Inc. All rights reserved. 
- */  
 package com.oicq.frame;
 
 import java.awt.*;
@@ -21,11 +13,6 @@ import com.oicq.client.InteractWithServer;
 /**   
  * @ClassName:  ExitListenter  
  * @Description: 用于登录界面和主界面的退出按钮 
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
  */  
 class ExitListenter implements ActionListener {
 
@@ -36,13 +23,8 @@ class ExitListenter implements ActionListener {
 
 }
 /**   
- * @ClassName:  ExitNoeFrameListenter  
- * @Description: 用于推出当前frame窗口 
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
+ * @ClassName:  ExitNowFrameListenter  
+ * @Description: 用于退出当前frame窗口 
  */  
 class ExitNowFrameListenter implements ActionListener {
 	private JFrame now;
@@ -60,11 +42,6 @@ class ExitNowFrameListenter implements ActionListener {
 /**   
  * @ClassName:  LoginMouseMove
  * @Description: 用于使窗口可以点击任意位置移动 
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
  */  
 class LoginMousemove extends MouseAdapter {
 	private int offsetX, offsetY;
@@ -95,11 +72,6 @@ class LoginMousemove extends MouseAdapter {
 /**   
  * @ClassName:  LoginListener
  * @Description: 获得登录信息并创建主界面 
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
  */  
 class LoginListener implements ActionListener {
 	JFrame now;
@@ -136,7 +108,6 @@ class LoginListener implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		System.out.println("try login");
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -165,35 +136,27 @@ class LoginListener implements ActionListener {
 									t ^= 'I';
 									out.write(t);
 								}
-								//out.write(userIdString.getBytes());
 								out.write('\n');
+								//out.write(userIdString.getBytes());								out.write('\n');
 								for(int i=0;i<userPasswordString.length();i++){
 									char t = userPasswordString.charAt(i);
 									t ^= 'P';
 									out.write(t);
 								}
-								//out.write(userPasswordString.getBytes());
-								out.write('\n');
-								if (isAutoLog) {
+
+								/*if (isAutoLog) {
 									out.write('1');
 								} else {
 									out.write('0');
-								}
+								}*/
 								out.close();
 							} catch (Exception e) {
 								System.out.println("ListenterClass/actionPerformed Error " + e);
 							}
 						} else {
-							// try {
-							// FileOutputStream out = new
-							// FileOutputStream("./Data/UserInfo.uif");
-							// } catch (FileNotFoundException e) {
-							// // TODO 自动生成的 catch 块
-							// e.printStackTrace();
-							// }
+
 						}
 						now.dispose();
-
 						// 创建线程接入聊天端口
 						new Thread(new ChatThread(userIdString)).start();
 
@@ -213,11 +176,6 @@ class LoginListener implements ActionListener {
 /**   
  * @ClassName:  SendFriend  
  * @Description: 对好友发送信息   
- * @author: 艾尔森 
- * @date:   2016-12-8  
- *   
- * class
- * @Copyright: 2016 www.ireson.cn Inc. All rights reserved.  
  */  
 class SendFriend implements ActionListener {
 	private JTextArea message;

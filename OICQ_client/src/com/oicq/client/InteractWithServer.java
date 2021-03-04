@@ -1,14 +1,3 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		InteractWithServer.java
- * @Package:	com.oicq.client
- * @Description:与服务器验证端口的连接，主要用于请求数据或者验证登录信息
- * @author:		千千
- * @date:		2016/11/20 16:24
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
-
 package com.oicq.client;
 
 import java.io.IOException;
@@ -23,13 +12,7 @@ import com.oicq.user.User;
 
 /**
  * @ClassName: InteractWithServer
- * @Description:Connection to the server authentication port, mainly for
- *                         requesting data or verifying login information.
- * @author: 千千
- * @date: 2016/11/20 16:24
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
+ * @Description: 与服务器验证端口的连接，主要用于请求数据或者验证登录信息
  */
 
 public final class InteractWithServer {

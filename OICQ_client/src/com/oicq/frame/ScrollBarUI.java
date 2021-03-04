@@ -1,14 +1,3 @@
-/**
- * All rights Reserved, Designed By www.dreamwings.cn
- * @Title:		ScrollBarUI.java
- * @Package:	com.oicq.frame
- * @Description:美化 JScrollPane 滚动条，为其添加自定义样式
- * @author:		千千
- * @date:		2016/11/22 17:39
- * @version:	V1.0
- * @Copyright:	2016 www.dreamwings.cn Inc. All rights reserved.
- */
-
 package com.oicq.frame;
 
 import java.awt.AlphaComposite;
@@ -21,15 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-/**
- * @ClassName: ScrollBarUI
- * @Description:Beautify the JScrollPane Scrollbar to add a custom style to it.
- * @author: 千千
- * @date: 2016/11/22 17:39
- * 
- * @since: JDK 1.8
- * @Copyright: 2016 www.dreamwings.cn Inc. All rights reserved.
- */
+/**   
+ * @ClassName:  ScrollBarUI  
+ * @Description: 美化 JScrollPane 滚动条，为其添加自定义样式
+ */  
+
 public final class ScrollBarUI extends BasicScrollBarUI {
 
 	/*
