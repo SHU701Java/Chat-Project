@@ -49,7 +49,7 @@ public final class ServerInfo {
 	/**
 	 * @Fields DB_NAME : Mysql 数据库名称
 	 */
-	public final static String DB_NAME = "oicq";
+	public final static String DB_NAME = "oicq2";
 
 	/**
 	 * @Fields DB_USER_NAME : Mysql 数据库连接用户名
@@ -59,5 +59,5 @@ public final class ServerInfo {
 	/**
 	 * @Fields DB_USER_PASSWORD : Mysql 数据库连接密码
 	 */
-	public final static String DB_USER_PASSWORD = "123456";
+	public final static String DB_USER_PASSWORD = "";
 }

@@ -190,8 +190,8 @@ public final class VerifyConnection implements Runnable {
 					DataBaseConnection con = new DataBaseConnection();
 					String groupID = check.getNewGroupID();
 					String[] defaultInfo = { groupID, res[2], res[1], "大家一起来聊天",
-							"http://static.dreamwings.cn/wp-content/uploads/2016/05/236657.jpg",
-							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) };
+							new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()),
+							"http://static.dreamwings.cn/wp-content/uploads/2016/05/236657.jpg" };
 					String sql = "insert into dw_group values(\"" + groupID + "\"";
 					for (int i = 1; i < defaultInfo.length; ++i)
 						sql += ", \"" + defaultInfo[i] + "\"";

@@ -286,13 +286,13 @@ public final class DataCheck {
 		String res = "NULL";
 		try {
 			if (resultSet.next())
-				res = resultSet.getString("user_id");
+				res = resultSet.getString("group_id");
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("log: the largest userID is " + res);
+		System.out.println("log: the largest group_id is " + res);
 		int nxt = 9999;
 		if (!res.equals("NULL"))	
 			nxt = Integer.parseInt(res);
