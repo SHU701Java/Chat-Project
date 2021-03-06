@@ -343,6 +343,7 @@ public final class ChatWithFriend extends JFrame {
 					.getScaledInstance(20, 20, Image.SCALE_DEFAULT))));
 			myBox.add(new JLabel("☆我☆(" + mid + ")"));
 			groupPeopleBox.add(myBox);
+			groupPeopleBox.add(Box.createVerticalStrut(10));
 			for (String i : members) {
 				if (i.equals(mid))
 					continue;
@@ -359,6 +360,7 @@ public final class ChatWithFriend extends JFrame {
 				peopleBox.add(new JLabel(icon));
 				peopleBox.add(new JLabel(content));
 				groupPeopleBox.add(peopleBox);
+				groupPeopleBox.add(Box.createVerticalStrut(10));
 			}
 			groupPeopleScrollPanel = new JScrollPane(groupPeopleBox);
 
