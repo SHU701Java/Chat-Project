@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import javax.swing.*;
 
@@ -194,7 +195,10 @@ class SendFriend implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// 发送消息
 		if (this.message.getText().trim().length() != 0) {
-			now.addMessage(mName, new Date().toString(), this.message.getText(), false, true);
+			Date d=new Date();
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String str=sdf.format(d);
+			now.addMessage(mName, str, this.message.getText(), false, true);
 			ChatThread.getDataStream().send(this.message.getText(), fid, isGroup);
 			this.message.setText("");
 		} else {
