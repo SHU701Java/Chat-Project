@@ -16,16 +16,16 @@ import com.oicq.client.InteractWithServer;
 import com.oicq.config.UserInfo.FriendsOrGroups;
 import com.oicq.user.User;
 
-/**   
- * @ClassName:  MainInterface  
- * @Description: 用于显示主界面 用户的相关信息和好友等   
- */  
+/**
+ * @ClassName: MainInterface
+ * @Description: 用于显示主界面 用户的相关信息和好友等
+ */
 public final class MainInterface extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel upPanel, downPanel, friendPane, groupPane;
 	private JButton minimize, close, tradesButton, peopelButtonExtend, groupButtonExtend;
 	private JLabel /* logo, */ /* headPortrait, */ nameLabel;
-	private JButton headPortrait,friendManage,infoManage,refreshManage;
+	private JButton headPortrait, friendManage, refreshManage;
 	private Box nameBox;
 	private JTextField tradesTextField;
 	private ButtonGroup peopelOrGroup;
@@ -83,7 +83,7 @@ public final class MainInterface extends JFrame implements ActionListener {
 		upPanel.add(tradesButton);
 		upPanel.add(tradesTextField);
 		upPanel.add(friendManage);
-		upPanel.add(infoManage);
+//		upPanel.add(infoManage);
 		upPanel.add(refreshManage);
 		downPanel.add(peopelButtonExtend);
 		downPanel.add(peopelButton);
@@ -152,7 +152,7 @@ public final class MainInterface extends JFrame implements ActionListener {
 			friendButtonGroup.add(friend.get(fid));
 		}
 	}
-	
+
 	void updateGroupModel() {
 		int groupsNumber = userInfo.getGroups().size();
 		groupPane = new JPanel();
@@ -201,6 +201,7 @@ public final class MainInterface extends JFrame implements ActionListener {
 			groupButtonGroup.add(group.get(gid));
 		}
 	}
+
 	private void init() {
 		/**
 		 * Panel up
@@ -270,9 +271,9 @@ public final class MainInterface extends JFrame implements ActionListener {
 		/*
 		 * headPortrait.addActionListener(new ActionListener(){
 		 * 
-		 * @Override public void actionPerformed(ActionEvent arg0) { // TODO
-		 * 自动生成的方法存根 //showOpenDialog(Component a); WindowReader win=new
-		 * WindowReader(); //win.setTitle("上传头像");
+		 * @Override public void actionPerformed(ActionEvent arg0) { // TODO 自动生成的方法存根
+		 * //showOpenDialog(Component a); WindowReader win=new WindowReader();
+		 * //win.setTitle("上传头像");
 		 * 
 		 * } });
 		 */
@@ -360,63 +361,43 @@ public final class MainInterface extends JFrame implements ActionListener {
 				tradesButton.setVisible(true);
 			}
 		});
-		
-		friendManage=new JButton();
-		friendManage.setBounds(77,90,32,32);
+
+		friendManage = new JButton();
+		friendManage.setBounds(77, 90, 32, 32);
 		friendManage.setVisible(true);
 		friendManage.setToolTipText("好友管理");
 		friendManage.setIcon(new ImageIcon("./res/Misc/FileManager/friendManage_normal.png")); // normal
-																						// png
-//		friendManage.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png")); // rollover
-//																								// png
-//		friendManage.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png")); // press
-//																							// png
-		friendManage.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO 自动生成的方法存根
-				UserAdd friendAdd=new UserAdd(userInfo);
-			}
-		});
-		
-		infoManage=new JButton();
-		infoManage.setBounds(110,90,32,32);
-		infoManage.setVisible(true);
-		infoManage.setToolTipText("资料管理");
-		infoManage.setIcon(new ImageIcon("./res/Misc/FileManager/infoManage_normal.png")); // normal
-						
 		// png
 //		friendManage.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png")); // rollover
 //																								// png
 //		friendManage.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png")); // press
 //																							// png
-		infoManage.addActionListener(new ActionListener() {
-			
+		friendManage.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
-				InfoManage manage=new InfoManage(userInfo);
+				UserAdd friendAdd = new UserAdd(userInfo);
 			}
 		});
-		
-		refreshManage=new JButton();
-		refreshManage.setBounds(143,90,32,32);
+
+		refreshManage = new JButton();
+		refreshManage.setBounds(110, 90, 32, 32);
 		refreshManage.setVisible(true);
 		refreshManage.setToolTipText("刷新");
 		refreshManage.setIcon(new ImageIcon("./res/Misc/FileManager/refreshManage_normal.png")); // normal
-						
+
 		// png
 //		friendManage.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png")); // rollover
 //																								// png
 //		friendManage.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png")); // press
 //																							// png
 		refreshManage.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
-				userInfo=InteractWithServer.getUserInfo(userInfo.getUserId());
+				userInfo = InteractWithServer.getUserInfo(userInfo.getUserId());
 				updateFriendModel();
 				updateGroupModel();
 			}
@@ -503,7 +484,7 @@ public final class MainInterface extends JFrame implements ActionListener {
 		 * group model
 		 */
 		updateGroupModel();
-		
+
 		friendScrollPane = new JScrollPane(friendPane);
 		// 设置滚动条样式
 		friendScrollPane.getVerticalScrollBar().setUI(new ScrollBarUI());
