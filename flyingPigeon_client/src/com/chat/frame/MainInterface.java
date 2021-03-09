@@ -83,10 +83,6 @@ public final class MainInterface extends JFrame implements ActionListener {
 		upPanel.add(tradesButton);
 		upPanel.add(tradesTextField);
 		upPanel.add(friendManage);
-<<<<<<< HEAD:flyingPigeon_client/src/com/chat/frame/MainInterface.java
-=======
-//		upPanel.add(infoManage);
->>>>>>> cbdee7994ba0a20692e26ddac15f4c45db8ab1b8:OICQ_client/src/com/oicq/frame/MainInterface.java
 		upPanel.add(refreshManage);
 		downPanel.add(peopelButtonExtend);
 		downPanel.add(peopelButton);
@@ -357,17 +353,13 @@ public final class MainInterface extends JFrame implements ActionListener {
 		friendManage.setVisible(true);
 		friendManage.setToolTipText("好友管理");
 		friendManage.setIcon(new ImageIcon("./res/Misc/FileManager/friendManage_normal.png")); // normal
-<<<<<<< HEAD:flyingPigeon_client/src/com/chat/frame/MainInterface.java
 																						// png
-=======
 		// png
->>>>>>> cbdee7994ba0a20692e26ddac15f4c45db8ab1b8:OICQ_client/src/com/oicq/frame/MainInterface.java
 //		friendManage.setRolloverIcon(new ImageIcon("./res/Misc/FileManager/closebutton_hover.png")); // rollover
 //																								// png
 //		friendManage.setPressedIcon(new ImageIcon("./res/Misc/FileManager/closebutton_down.png")); // press
 //																							// png
 		friendManage.addActionListener(new ActionListener() {
-<<<<<<< HEAD:flyingPigeon_client/src/com/chat/frame/MainInterface.java
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -391,20 +383,9 @@ public final class MainInterface extends JFrame implements ActionListener {
 //			}
 //		});
 		
-		refreshManage=new JButton();
-		refreshManage.setBounds(110,90,32,32);
-=======
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO 自动生成的方法存根
-				UserAdd friendAdd = new UserAdd(userInfo);
-			}
-		});
 
 		refreshManage = new JButton();
 		refreshManage.setBounds(110, 90, 32, 32);
->>>>>>> cbdee7994ba0a20692e26ddac15f4c45db8ab1b8:OICQ_client/src/com/oicq/frame/MainInterface.java
 		refreshManage.setVisible(true);
 		refreshManage.setToolTipText("刷新");
 		refreshManage.setIcon(new ImageIcon("./res/Misc/FileManager/refreshManage_normal.png")); // normal
