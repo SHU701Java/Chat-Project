@@ -34,6 +34,7 @@ public class UserAdd extends JFrame {
 	User userInfo;
 	JButton friendAddButton, groupAddButton, groupCreateAddButton;
 	JButton peopleButton, groupButton, groupCreateButton;
+	JButton groupAddcancel,friendAddcancel,createGroupcancel;
 	ButtonGroup peopleOrGroup;
 	JRadioButton peopleRadioButton, groupRadioButton, groupCreateRadioButton;
 	private JScrollPane friendScrollPane;
@@ -148,15 +149,25 @@ public class UserAdd extends JFrame {
 
 		groupLable = new JLabel("输入5位群聊id:");
 		// groupLable.setBounds(10,95,70,36);
-		groupLable.setBounds(55, 15, 230, 40);
+		groupLable.setBounds(100, 15, 230, 40);
 
 		groupAddJpanel.add(groupLable);
 		groupidText = new JTextField();
-		groupidText.setBounds(40, 60, 150, 30);
+		groupidText.setBounds(68, 60, 150, 30);
 		groupAddJpanel.add(groupidText);
 
+		groupAddcancel=new JButton("取消");
+		groupAddcancel.setBounds(145, 100, 60, 30);
+		groupAddcancel.setBackground(new Color(9,163,220));
+		groupAddJpanel.add(groupAddcancel);
+		groupAddcancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			setVisible(false);	
+			}
+		});
+		
 		groupAddButton = new JButton("添加");
-		groupAddButton.setBounds(60, 100, 60, 30);
+		groupAddButton.setBounds(77, 100, 60, 30);
 		groupAddButton.setBackground(new Color(9, 163, 220));
 		groupAddJpanel.add(groupAddButton);
 		groupAddButton.addActionListener(new ActionListener() {
@@ -190,15 +201,25 @@ public class UserAdd extends JFrame {
 
 		groupCreateLable = new JLabel("输入你即将创建的群聊名字:");
 		// groupLable.setBounds(10,95,70,36);
-		groupCreateLable.setBounds(55, 15, 230, 40);
+		groupCreateLable.setBounds(75, 15, 230, 40);
 
 		groupCreateJpanel.add(groupCreateLable);
 		groupNameText = new JTextField();
-		groupNameText.setBounds(40, 60, 150, 30);
+		groupNameText.setBounds(68, 60, 150, 30);
 		groupCreateJpanel.add(groupNameText);
+		
+		createGroupcancel=new JButton("取消");
+		createGroupcancel.setBounds(145, 100, 60, 30);
+		createGroupcancel.setBackground(new Color(9,163,220));
+		groupCreateJpanel.add(createGroupcancel);
+		createGroupcancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			setVisible(false);	
+			}
+		});
 
-		groupCreateAddButton = new JButton("添加");
-		groupCreateAddButton.setBounds(60, 100, 60, 30);
+		groupCreateAddButton = new JButton("确定");
+		groupCreateAddButton.setBounds(77, 100, 60, 30);
 		groupCreateAddButton.setBackground(new Color(9, 163, 220));
 		groupCreateJpanel.add(groupCreateAddButton);
 		groupCreateAddButton.addActionListener(new ActionListener() {
@@ -218,15 +239,25 @@ public class UserAdd extends JFrame {
 		friendAddJpanel.setBounds(0, 0, 288, 280);
 
 		friendLable = new JLabel("输入5位用户id:");
-		friendLable.setBounds(55, 15, 230, 40);
+		friendLable.setBounds(100, 15, 230, 40);
 
 		friendAddJpanel.add(friendLable);
 		useridText = new JTextField();
-		useridText.setBounds(40, 60, 150, 30);
+		useridText.setBounds(68, 60, 150, 30);
 		friendAddJpanel.add(useridText);
 
+		friendAddcancel=new JButton("取消");
+		friendAddcancel.setBounds(145, 100, 60, 30);
+		friendAddcancel.setBackground(new Color(9,163,220));
+		friendAddJpanel.add(friendAddcancel);
+		friendAddcancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			setVisible(false);	
+			}
+		});
+		
 		friendAddButton = new JButton("添加");
-		friendAddButton.setBounds(60, 100, 60, 30);
+		friendAddButton.setBounds(77, 100, 60, 30);
 		friendAddButton.setBackground(new Color(9, 163, 220));
 		friendAddJpanel.add(friendAddButton);
 
