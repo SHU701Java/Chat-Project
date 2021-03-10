@@ -530,9 +530,6 @@ public final class MainInterface extends JFrame implements ActionListener {
 			}
 		});
 		
-		
-		
-		
 		/**
 		 * panel down
 		 */
@@ -625,6 +622,8 @@ public final class MainInterface extends JFrame implements ActionListener {
 		friendScrollPane.setBounds(0, 36, 288, 395);
 	}
 	void update() {
+		peopelButton.setSelected(true);
+		peopelButton.requestFocus();
 		friendScrollPane.setViewportView(friendPane);
 	}
 	public static HashMap<String, FriendModel> getFriend() {

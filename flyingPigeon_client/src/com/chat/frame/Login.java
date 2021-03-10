@@ -359,11 +359,9 @@ public final class Login extends JFrame {
 
 		//找回密码到此结束
 
-        LoginMousemove adapter = new LoginMousemove();
+		LoginMousemove adapter = new LoginMousemove();
 		addMouseMotionListener(adapter);
 		addMouseListener(adapter);
-		
 		setVisible(true);
-    	
     }
 }
